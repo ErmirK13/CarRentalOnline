@@ -5,6 +5,7 @@ body {
     background-color: #f4f8fa;
     color: #333;
 }
+/* Navbar Styles */
 header {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -53,14 +54,27 @@ header {
     color: #333;
     margin: 0 15px;
     font-weight: 500;
-    transition: color 0.3s;
     position: relative;
-    transition: transform 0.25s ease,;
+    transition: color 0.3s;
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #007bff;
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s;
+}
+
+.main-nav a:hover::after {
+    width: 100%;
 }
 
 .main-nav a:hover {
     color: #007bff;
-    transform: translateY(-10px);
 }
 
 .login-btn {
@@ -105,7 +119,6 @@ header {
     min-height: 250px; 
 }
 
-
 .card-header {
     display: flex;
     align-items: center;
@@ -121,7 +134,7 @@ header {
 
 .card-header i {
     font-size: 2.5em; 
-    color: #007bff; 
+    color: #007bff;
     margin-right: 15px;
     width: 40px;
     height: 40px;
@@ -217,16 +230,13 @@ header {
     }
 }
 
-
 /*HOME*/
 .home{
- 
   background:linear-gradient(135deg,#0a58ca,#0d6efd ) ;
   min-height:100vh;
   display:flex;
   align-items:center;
-  padding: 0 40px;
-
+  padding: 50px 50px;
 }
 
 .home-container{
@@ -240,8 +250,6 @@ header {
   align-items:center;
   justify-content: space-between;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-  
-
 }
 
 .home-text{
@@ -346,11 +354,6 @@ header {
     width: 100%;
   }
 }
- 
-
-
-
-
 /* About us */
 
 .about-hero {
@@ -434,7 +437,7 @@ header {
   margin-bottom: 15px;
 }
 
-/* Responsive */
+/* Responsive About Us */
 @media (max-width: 768px) {
   .about-page-container,
   .values-container {
@@ -443,7 +446,7 @@ header {
   }
 }
 
-/* /Pjesa e services*/ 
+/* Testimonials */
 .testimonials {
   padding: 80px 20px;
   background: #f8f9fb;
@@ -526,14 +529,12 @@ header {
   align-items: center;
   justify-content: center;
   margin: 0 auto 15px;
-  /* border: 2px solid #2072Ef; */
 }
 
 .avatar-user i {
   font-size: 36px;
   color: #2072Ef;
 }
-
 
 /* 📱 Responsive  Testimonials*/
 @media (max-width: 768px) {
@@ -558,12 +559,7 @@ header {
   }
 }
 
-
-
-/* =========================
-   SERVICES PAGE
-========================= */
-
+/* SERVICES PAGE */
 .services-section {
   padding: 60px 20px;
   background-color: #f5f7fb;
@@ -604,6 +600,7 @@ header {
   height: 180px;
   object-fit: cover;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .car-card h3 {
@@ -626,7 +623,6 @@ header {
   margin-bottom: 15px;
 }
 
-/* BUTTON */
 .car-card button {
   width: 100%;
   padding: 12px;
@@ -643,49 +639,7 @@ header {
   background-color: #0053d1;
 }
 
-/* =========================
-   CART (SHOPPING CART)
-========================= */
-
-.cart-section {
-  max-width: 600px;
-  margin: 60px auto;
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-.cart-section h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.cart-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.cart-section li {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-  font-size: 15px;
-}
-
-.total {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: right;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
+/* SERVICES RESPONSIVE */
 @media (max-width: 768px) {
   .services-section h1 {
     font-size: 28px;
@@ -696,8 +650,186 @@ header {
   }
 }
 
+/* CONTACT SECTION */
+.contact-section {
+  padding: 70px 20px 80px; 
+  background-color: #f4f8fa;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;     
+  justify-content: center;
+}
 
+.contact-container {
+  max-width: 1200px;
+  margin: auto;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 60px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
 
+.contact-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.contact-header h2 {
+  font-size: 48px;
+  font-weight: 800;
+  color: #0d6efd;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.script-subtitle {
+  font-size: 18px;
+  color: #666;
+  font-style: italic;
+}
+
+.contact-content {
+  display: flex;
+  gap: 60px;
+  align-items: stretch;
+}
+
+.contact-form-wrapper {
+  flex: 1;
+}
+
+.form-label {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #0d6efd;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-btn {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border: none;
+  padding: 14px 34px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.contact-btn:hover {
+  background-color: #084298;
+}
+
+.contact-info-wrapper {
+  flex: 1;
+  background: linear-gradient(135deg, #0d6efd, #084298);
+  border-radius: 20px;
+  padding: 50px 40px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-item {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.info-item i {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.flip-icon {
+  transform: scaleX(-1);
+}
+
+.info-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 6px;
+}
+
+.info-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.contact-socials {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.contact-socials a {
+  color: #ffffff;
+  font-size: 22px;
+  margin: 0 12px;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.contact-socials a:hover {
+  color: #cfe2ff;
+  transform: scale(1.2);
+}
+
+/* CONTACT RESPONSIVE*/
+@media (max-width: 900px) {
+  .contact-container {
+    padding: 40px 25px;
+  }
+
+  .contact-header h2 {
+    font-size: 32px;
+  }
+
+  .contact-content {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .contact-info-wrapper {
+    padding: 35px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-header h2 {
+    font-size: 26px;
+  }
+
+  .script-subtitle {
+    font-size: 14px;
+  }
+
+  .contact-btn {
+    width: 100%;
+  }
+}
+/* CONTACT SECTION. */
 
 /* FOOTER */
 .site-footer {
@@ -778,7 +910,7 @@ header {
   text-align: center;
   margin-top: 40px;
   font-size: 0.85em;
-  color: #c0c0c0;
+  color: #fff;
 }
 
 /* FOOTER RESPONSIVE */
@@ -794,4 +926,33 @@ header {
     gap: 40px;
     justify-content: center;
   }
+}
+
+/* BACK TO TOP BUTTON */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #0d6efd;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 50px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: background 0.3s, transform 0.3s;
+  z-index: 1000;
+}
+
+.back-to-top:hover {
+  background: #0d6efd;
+  transform: translateY(-3px);
+}
+.back-to-top i {
+  font-size: 12px;
 }
