@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CarRentalOnline</title>
   <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <header>
@@ -31,13 +32,7 @@
     </div>
 </header>
 
-   <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-
+  
    
 
 
@@ -95,7 +90,7 @@
 </div>
 
     <script>
-      
+      `
 const SignUp = document.getElementById("SignUp");
 const SignIn = document.getElementById("SignIn");
 
@@ -121,11 +116,13 @@ window.addEventListener("click", (e) => {
     if (e.target === SignUp) SignUp.style.display = "none";
     if (e.target === SignIn) SignIn.style.display = "none";
 });
-
+document.getElementById("menuToggle").onclick = function () {
+  var nav = document.getElementById("mainNav");
+  nav.classList.toggle("active");
+};
 
 
     </script>
-
 
     
 </body>
