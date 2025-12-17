@@ -1,0 +1,436 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f8fa;
+    color: #333;
+}
+header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007bff; 
+}
+
+.logo-img {
+    width: 40px; 
+    height: auto;
+    margin-right: 10px;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: #333;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #333;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.3s;
+    position: relative;
+    transition: transform 0.25s ease,;
+}
+
+.main-nav a:hover {
+    color: #007bff;
+    transform: translateY(-10px);
+}
+
+.login-btn {
+    background-color: #007bff;
+    color: white !important;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+}
+
+.about-us-cards {
+    padding: 40px 20px;
+}
+
+.about-us-cards h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+    color: #007bff;
+}
+
+.how-it-works-section {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    flex: 1; 
+    background-color: #eaf3f5;
+    padding: 20px;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); 
+    min-height: 250px; 
+}
+
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+    font-weight: bold;
+}
+
+.card-header i {
+    font-size: 2.5em; 
+    color: #007bff; 
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.booking .card-header i {
+    font-size: 0.9em;
+    color: white;
+    background-color: #007bff; 
+    padding: 4px 8px;
+    height: auto;
+    width: auto;
+    border-radius: 4px;
+    line-height: 1.2;
+    margin-right: 10px; 
+}
+
+.card ul {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+}
+
+.card li {
+    position: relative;
+    padding-left: 20px; 
+    margin-bottom: 15px;
+    line-height: 1.4;
+    color: #444;
+}
+
+.card li::before {
+    content: '•'; 
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #007bff;
+    font-size: 1.2em;
+    line-height: inherit;
+}
+
+@media (max-width: 900px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        z-index: 10;
+    }
+
+    .main-nav a {
+        padding: 10px 20px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+        display: block;
+        margin: 0;
+    }
+    
+    .main-nav a:last-child {
+        border-bottom: none;
+    }
+
+    .main-nav.active {
+        display: flex;
+    }
+    
+    .header-container {
+        justify-content: space-between;
+    }
+
+    .login-btn {
+        margin-left: auto;
+    }
+    
+    .how-it-works-section {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .card-header h2 {
+        font-size: 1.3em;
+    }
+}
+
+/* about us */
+
+.about-hero {
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color:#007bff;
+}
+
+.about-hero-content {
+  text-align: center;
+}
+
+.about-hero h1 {
+  font-size: 42px;
+}
+
+/* About page */
+.about-page {
+  padding: 80px 20px;
+}
+
+.about-page-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-text h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.about-text p {
+  line-height: 1.3;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.about-photo img {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 12px;
+}
+
+/* Values */
+.about-values {
+  background: #f9f9f9;
+  padding: 70px 20px;
+  text-align: center;
+}
+
+.values-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  gap: 30px;
+}
+
+.value-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  flex: 1;
+}
+
+.value-card i {
+  font-size: 32px;
+  color: #2072ef;
+  margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-page-container,
+  .values-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* pjesa e services */
+/* =========================
+   SERVICES PAGE
+========================= */
+
+.services-section {
+  padding: 60px 20px;
+  background-color: #f5f7fb;
+  text-align: center;
+}
+
+.services-section h1 {
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+/* CAR CARDS GRID */
+.services-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+/* SINGLE CARD */
+.car-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.car-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.car-card h3 {
+  margin: 15px 0 5px;
+  font-size: 20px;
+  color: #222;
+}
+
+.car-card p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.price {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2072ef;
+  margin-bottom: 15px;
+}
+
+/* BUTTON */
+.car-card button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2072ef;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.car-card button:hover {
+  background-color: #0053d1;
+}
+
+/* =========================
+   CART (SHOPPING CART)
+========================= */
+
+.cart-section {
+  max-width: 600px;
+  margin: 60px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cart-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cart-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-section li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.total {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .services-section h1 {
+    font-size: 28px;
+  }
+
+  .car-card img {
+    height: 160px;
+  }
+}

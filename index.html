@@ -3,11 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CarRental</title>
+  <title>CarRentalOnline</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-        <h1>Welcome</h1>
-        <h2>hello</h2>
-        <p>CarRental eshte website per vetura me qera</p>
-</body>
+  <header>
+    <div class="header-container">
+        <div class="brand">
+            <div class="logo">
+                <img class="logo-img" src="images/logo.png" alt="Logo">
+            </div>
+            <div class="brand-name">CarRental</div>
+        </div>
+        
+        <button class="menu-toggle" aria-label="Toggle navigation" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+            <a href="auth.html" class="login-btn">Login</a>
+        </nav>
+    </div>
+</header>
+
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Welcome to CarRentalOnline</h1>
+            <p>Your trusted partner for convenient and affordable car rentals worldwide.</p>
+            <a href="#services" class="cta-button">Explore Our Services</a>
+            <img class="img" src="images/image.JPG" alt="image">
+        </section>
+
+    <section id="about" class="about-us-cards">
+        <h2>How It Works</h2>
+        <div class="how-it-works-section">
+            <div class="card location">
+                <div class="card-header">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h2>Location & Search</h2>
+                </div>
+                <ul>
+                    <li>Select your pick-up location, which can be a city center, airport, or a specific drop-off point.</li>
+                    <li>Enter the start and end dates of your rental period to search for available cars.</li>
+                </ul>
+            </div>
+
+            <div class="card booking">
+                <div class="card-header">
+                    <i class="fa-solid fa-hand-pointer"></i>
+                    <h2>Booking & Payment</h2>
+                </div>
+                <ul>
+                    <li>Choose a car that fits your needs and add any optional extras.</li>
+                    <li>Complete the reservation directly through our website and finalize the payment online.</li>
+                    <li>You will receive a confirmation email containing your voucher, the rental company's details, and pick-up instructions.</li>
+                </ul>
+            </div>
+
+            <div class="card pickup">
+                <div class="card-header">
+                    <i class="fa-solid fa-car"></i>
+                    <h2>Pick-Up & Drive</h2>
+                </div>
+                <ul>
+                    <li>At the counter, you will need to present your voucher, passport/ID, driver's license, and a credit card.</li>
+                    <li>Sign the rental agreement, collect the keys, and enjoy your journey!</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+
+<!-- importimi i JS -->
+ <script src="js/index.js"></script>
 </html>

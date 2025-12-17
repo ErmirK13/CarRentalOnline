@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-container">
+    <div class="brand">
+      <div class="logo">
+        <img class="logo-img" src="images/logo.png" alt="Logo">
+      </div>
+      <div class="brand-name">CarRental</div>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="auth.html" class="login-btn">Login</a>
+    </nav>
+  </div>
+</header>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <h1>Our Cars</h1>
+
+  <div class="services-container">
+
+    <!-- CARD -->
+    <div class="car-card">
+      <img src="images/car1.jpg" alt="Car">
+      <h3>BMW X5</h3>
+      <p>Luxury SUV · Automatic</p>
+      <span class="price">€120 / day</span>
+      <button onclick="addToCart('BMW X5', 120)">Add to Cart</button>
+    </div>
+
+    <div class="car-card">
+      <img src="images/car2.jpg" alt="Car">
+      <h3>Audi A4</h3>
+      <p>Sedan · Automatic</p>
+      <span class="price">€90 / day</span>
+      <button onclick="addToCart('Audi A4', 90)">Add to Cart</button>
+    </div>
+
+    <div class="car-card">
+      <img src="images/car3.jpg" alt="Car">
+      <h3>VW Golf</h3>
+      <p>Economy · Manual</p>
+      <span class="price">€50 / day</span>
+      <button onclick="addToCart('VW Golf', 50)">Add to Cart</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CART -->
+<section class="cart-section">
+  <h2>Your Cart</h2>
+  <ul id="cartList"></ul>
+  <p class="total">Total: €<span id="totalPrice">0</span></p>
+</section>
+
+<script src="js/services.js"></script>
+</body>
+</html>
