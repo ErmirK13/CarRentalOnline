@@ -9,6 +9,10 @@ header {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .header-container {
@@ -213,7 +217,141 @@ header {
     }
 }
 
-/* about us */
+
+/*HOME*/
+.home{
+ 
+  background:linear-gradient(135deg,#0a58ca,#0d6efd ) ;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding: 0 40px;
+
+}
+
+.home-container{
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 80px 70px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  
+
+}
+
+.home-text{
+ width: 55%;
+}
+
+.home-text h1{
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.home-text h1 span{
+  color: #0d6efd;
+}
+
+.home-text p{
+  font-size: 18px;
+  margin-top: 25px;
+  max-width:520px;
+  color: #555;
+}
+
+.home-search button{
+  background: #0d6efd;
+  color: #fff;
+  border: none;
+  padding: 14px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.home-search input{
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.search:hover {
+  background-color: #084298;
+}
+.home-image{
+  width: 50%;
+}
+.home-image img{
+  width: 100%;
+  max-width: 500px;
+  transform: scale(1.1);
+}
+.home-search {
+  display: flex;
+  gap: 15px; 
+  margin-top: 25px;
+  align-items: center;
+}
+/*HOME.*/
+
+/*HOME RESPONSIVE*/
+@media(max-width:900px){
+  .home-container{
+    flex-direction: column; 
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .home-text{
+    width: 100%; 
+  }
+
+  .home-text h1{
+    font-size: 36px; 
+    line-height: 1.2;
+  }
+
+  .home-text p{
+    font-size: 16px;
+    max-width: 100%;
+    margin: 15px auto;
+  }
+
+  .home-image{
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .home-image img{
+    width: 100%;
+    max-width: 400px; 
+    transform : scale(1);
+  }
+
+  .home-search{
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+  }
+
+  .home-search input,
+  .home-search button{
+    width: 100%;
+  }
+}
+ 
+
+
+
+
+/* About us */
 
 .about-hero {
   height: 40vh;
@@ -281,6 +419,13 @@ header {
   padding: 30px;
   border-radius: 12px;
   flex: 1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
 .value-card i {
@@ -298,7 +443,123 @@ header {
   }
 }
 
-/* pjesa e services */
+/* /Pjesa e services*/ 
+.testimonials {
+  padding: 80px 20px;
+  background: #f8f9fb;
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.testimonial-slider {
+  max-width: 700px;
+  margin: auto;
+  position: relative;
+}
+
+.testimonial-card {
+  display: none;
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.testimonial-card.active {
+  display: block;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.stars {
+  color: #f5b50a;
+  margin-bottom: 15px;
+}
+
+.testimonial-card p {
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.testimonial-card h4 {
+  margin: 0;
+  color: #2072Ef;
+}
+
+.testimonial-card span {
+  font-size: 14px;
+  color: #777;
+}
+
+.testimonial-slider button {
+  background: #fff;
+  color: #2072Ef;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.prev { left: -50px; }
+.next { right: -50px; }
+
+.avatar-user {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f1f5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  /* border: 2px solid #2072Ef; */
+}
+
+.avatar-user i {
+  font-size: 36px;
+  color: #2072Ef;
+}
+
+
+/* 📱 Responsive  Testimonials*/
+@media (max-width: 768px) {
+  .testimonial-slider {
+    max-width: 100%;
+  }
+
+  .prev { left: 10px; }
+  .next { right: 10px; }
+
+  .testimonial-card {
+    padding: 25px 20px;
+  }
+
+  .avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .avatar-user i {
+    font-size: 28px;
+  }
+}
+
+
+
 /* =========================
    SERVICES PAGE
 ========================= */
@@ -432,5 +693,105 @@ header {
 
   .car-card img {
     height: 160px;
+  }
+}
+
+
+
+
+/* FOOTER */
+.site-footer {
+  background-color:#2072ef; 
+  color: #ffffff;
+  padding: 60px 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 30px;
+}
+
+.footer-brand {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.footer-left p {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.footer-social {
+  margin-top: 15px;
+}
+
+.footer-social a {
+  color: #ffffff;
+  margin-right: 15px;
+  font-size: 1.2em;
+  display: inline-block;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: #0d6efd;
+}
+
+.footer-links {
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.footer-column h4 {
+  margin-bottom: 15px;
+  font-size: 1.1em;
+  color: #ffffff;
+}
+
+.footer-column a {
+  display: block;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #e0e0e0;
+  font-size: 0.95em;
+}
+
+.footer-column a:hover {
+  color: #0d6efd;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.85em;
+  color: #c0c0c0;
+}
+
+/* FOOTER RESPONSIVE */
+@media (max-width: 900px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .footer-links {
+    gap: 40px;
+    justify-content: center;
   }
 }

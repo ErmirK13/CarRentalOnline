@@ -1,55 +1,17 @@
-// document.getElementById("menuToggle").onclick = function () {
-//   var nav = document.getElementById("mainNav");
-//   nav.classList.toggle("active");
-// };
-
-// pjesa e sign in edhe sign up
-// const SignUp = document.getElementById("SignUp");
-// const SignIn = document.getElementById("SignIn");
-
-
-// document.querySelector(".register-btn").addEventListener("click", () => {
-//     SignUp.style.display = "flex";
-// });
-
-
-// document.getElementById("SignInform").addEventListener("click", () => {
-//     SignUp.style.display = "none";
-//     SignIn.style.display = "flex";
-// });
-
-// document.getElementById("SignUpform").addEventListener("click", () => {
-//     SignIn.style.display = "none";
-//     SignUp.style.display = "flex";
-// });
-
-window.addEventListener("click", (e) => {
-    if (e.target === SignUp) SignUp.style.display = "none";
-    if (e.target === SignIn) SignIn.style.display = "none";
-});
-
-// const menuToggle = document.getElementById("menuToggle");
-// const mainNav = document.getElementById("mainNav");
-
-// menuToggle.addEventListener("click", () => {
-//     mainNav.classList.toggle("show");
-// });
-
+//menu bar toggle
 document.getElementById("menuToggle").onclick = function () {
   var nav = document.getElementById("mainNav");
   nav.classList.toggle("active");
 };
 
-
-
-
+//pjesa e login dhe register
 const signIn = document.getElementById("SignIn");
 const signUp = document.getElementById("SignUp");
 
 const toSignUp = document.getElementById("toSignUp");
 const toSignIn = document.getElementById("toSignIn");
 
-// 👉 KUR FAQJA HAPET: SHFAQ SIGN IN
+// KUR FAQJA HAPET: SHFAQ SIGN IN
 signIn.style.display = "flex";
 
 // switch to Sign Up
@@ -79,3 +41,5 @@ function addToCart(name, price) {
   total += price;
   totalPrice.textContent = total;
 }
+
+
