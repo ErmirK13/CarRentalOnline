@@ -419,13 +419,14 @@ header {
     padding: 10px;
     margin: 8px 0;
     box-sizing: border-box;
+    border-radius: 4px;
 }
 
 .modalContent label {
     display: block;
     margin-top: 10px;
     font-weight: bold;
-    color: #333;
+    color:#666;
 }
 
 .submitBtn {
@@ -470,8 +471,57 @@ header {
 }
 .modalContent input,
 .modalContent select {
-    border: 1px solid #000;
+    border: 1px solid #ccc;
 }
+.modalContent input:focus,
+.modalContent select:focus {
+    border-color: #0d6efd;
+    outline: none;
+    
+}
+input.error,
+select.error {
+    border-color: red !important;
+}
+
+input.valid,
+select.valid {
+    border-color: #007bff;
+}
+
+#errorMessage {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #0d6efd;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 50px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: background 0.3s, transform 0.3s;
+  z-index: 1000;
+}
+
+.back-to-top:hover {
+  background: #0d6efd;
+  transform: translateY(-3px);
+}
+.back-to-top i {
+ font-size: 12px;
+}
+
 /*LogInForm*/
 /*LogInForm Responsive*/
 @media (max-width: 900px) {
@@ -485,7 +535,8 @@ header {
         width: 100%;
         font-size: 0.95em;
         box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid #ccc;
+    
     
     }
 
@@ -498,6 +549,8 @@ header {
         font-size: 1.3em;
     }
 }
+
+
 /*LogInForm Responsive*/
 /* CONTACT SECTION */
 
@@ -593,6 +646,21 @@ header {
 
 .contact-btn:hover {
   background-color: #084298;
+}
+.contact-form input.error,
+.contact-form textarea.error {
+    border-color: red;
+}
+
+.contact-form input.valid,
+.contact-form textarea.valid {
+    border-color: #007bff;
+}
+
+.contact-form #contactError {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
 }
 
 
