@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login/Register Form</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="header-container">
+        <div class="brand">
+          <div class="logo">
+            <img class="logo-img" src="images/logo.png" alt="Logo" />
+          </div>
+          <div class="brand-name">CarRental</div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+          <a href="index.html">Home</a>
+          <a href="about.html" class="active">About</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+          <a href="LoginForm.html" class="login-btn">Login</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- SignUp Form -->
+    <div id="SignUp" class="modal">
+      <div class="modalContent">
+        <h2>Create an account</h2>
+
+        <form id="SignUpform">
+          <input type="text" id="firstName" placeholder="First Name" required />
+          <input type="text" id="lastName" placeholder="Last Name" required />
+          <input type="email" id="emailSignUp" placeholder="Email" required />
+
+          <div class="passwordWrapper">
+            <input
+              type="password"
+              id="passwordSignUp"
+              placeholder="Password"
+              required
+            />
+            <i
+              class="fa-regular fa-eye toggle-password"
+              onclick="togglePassword('passwordSignUp')"
+            ></i>
+          </div>
+
+          <div class="passwordWrapper">
+            <input
+              type="password"
+              id="confirmPasswordSignUp"
+              placeholder="Confirm Password"
+              required
+            />
+            <i
+              class="fa-regular fa-eye toggle-password"
+              onclick="togglePassword('confirmPasswordSignUp')"
+            ></i>
+          </div>
+
+          <!-- Checkbox for terms and conditions -->
+          <label class="checkboxLabel">
+            <input type="checkbox" required />
+            <span
+              >By registering an account, you agree
+              <a href="#">Terms and conditions</a> and
+              <a href="#">Privacy policy</a> *</span
+            >
+          </label>
+
+          <button type="submit" class="submitBtn">Register</button>
+        </form>
+        <p class="textSwitch">
+          Already have an account? <a href="#" id="toSignIn">Sign In</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- SignIn Form -->
+    <div id="SignIn" class="modal">
+      <div class="modalContent">
+        <h2>Sign In</h2>
+
+        <form id="SignInForm">
+          <input type="email" placeholder="Email" required />
+
+          <div class="passwordWrapper">
+            <input
+              type="password"
+              placeholder="Password"
+              id="passwordSignIn"
+              required
+            />
+            <i
+              class="fa-regular fa-eye toggle-password"
+              onclick="togglePassword('passwordSignIn')"
+            ></i>
+          </div>
+
+          <button type="submit" class="submitBtn">Sign In</button>
+        </form>
+
+        <p class="textSwitch">
+          Don’t have an account? <a href="#" id="toSignUp">Sign Up</a>
+        </p>
+      </div>
+    </div>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>
