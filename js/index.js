@@ -1,3 +1,9 @@
+// MENU TOGGLE (si më parë)
+document.getElementById("menuToggle").onclick = function () {
+  var nav = document.getElementById("mainNav");
+  nav.classList.toggle("active");
+};
+
 // GLOBAL ELEMENTS
 const signInModal = document.getElementById("SignIn");
 const signUpModal = document.getElementById("SignUp");
@@ -24,18 +30,8 @@ function togglePassword(inputId) {
 
 // DOM CONTENT LOADED
 document.addEventListener("DOMContentLoaded", () => {
-  const menuToggle = document.getElementById("menuToggle");
-  const mainNav = document.getElementById("mainNav");
-
   const signUpForm = document.getElementById("SignUpform");
   const signInForm = document.getElementById("SignInForm");
-
-  // MENU TOGGLE
-  if (menuToggle) {
-    menuToggle.addEventListener("click", () => {
-      mainNav.classList.toggle("active");
-    });
-  }
 
   // LOGIN BUTTON → OPEN SIGN IN
   document.querySelectorAll(".login-btn").forEach((btn) => {
@@ -111,11 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
     signUpForm.reset();
     signUpModal.style.display = "none";
 
-    //REDIRECT TO HOME
+    // REDIRECT TO HOME
     window.location.href = "index.html";
   });
 
-  //SIGN IN VALIDATION
+  // SIGN IN VALIDATION
   signInForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -136,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     signInForm.reset();
     signInModal.style.display = "none";
 
-    //REDIRECT TO HOME
+    // REDIRECT TO HOME
     window.location.href = "index.html";
   });
 });
