@@ -13,25 +13,29 @@
 
             <h2>Create an account</h2>
 
-            <form id="SignUpform">
+           <form id="SignUpForm">
 
-                <input type="text" id="firstName" placeholder="First Name"required>
-                <input type="text" id="lastName" placeholder="Last Name" required>
-                <input type="email" id="emailSignUp" placeholder="Email" required>
-                <input type="password" id="passwordSignUp" placeholder="Password" required>
-                <input type="password" id="confirmPasswordSignUp" placeholder="Confirm Password" required>
-                <label >  Date of Birth</label>
-                <input type="date"required>
+    <input type="text" id="firstName" placeholder="First Name" required>
+    <input type="text" id="lastName" placeholder="Last Name" required>
+    <input type="email" id="emailSignUp" placeholder="Email" required>
+    <input type="password" id="passwordSignUp" placeholder="Password" required>
+    <input type="password" id="confirmPasswordSignUp" placeholder="Confirm Password" required>
 
-                <label >Gender</label>
-                <select required>
-                    <option value="" disabled selected>Select gender</option>
-                    <option >Male</option>
-                    <option>Female</option>
-                    </select>
+    <label>Date of Birth</label>
+    <input type="date" id="dob" required>
 
-                    <button type="submit"class="submitBtn">Register</button>
-            </form>
+    <label>Gender</label>
+    <select id="gender" required>
+        <option value="" disabled selected>Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+
+   
+    <button type="button" class="submitBtn" id="registerBtn">Register</button>
+
+    <p id="registerError" style="color:red; text-align:center;"></p>
+</form>
             <p class = "textSwitch">
                 Already have an account? <a href="#" id="toSignIn">Sign In</a>
             </p>
@@ -45,17 +49,24 @@
 
         <form id="SignInForm">
 
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
+    <input type="email" id="loginEmail" placeholder="Email" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
 
-            <button type="submit" class="submitBtn">Sign In</button>
-        </form>
+  
+    <button type="button" class="submitBtn" id="loginBtn">Sign In</button>
+
+    <p id="loginError" style="color:red; text-align:center;"></p>
+</form>
 
         <p class="textSwitch">
             Don’t have an account? <a href="#" id="toSignUp">Create one</a>
         </p>
     </div>
 </div>
+
+
+
+
 <script src="index.js" defer></script>
 
 </body>

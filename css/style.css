@@ -419,14 +419,13 @@ header {
     padding: 10px;
     margin: 8px 0;
     box-sizing: border-box;
-    border-radius: 4px;
 }
 
 .modalContent label {
     display: block;
     margin-top: 10px;
     font-weight: bold;
-    color:#666;
+    color: #333;
 }
 
 .submitBtn {
@@ -471,30 +470,8 @@ header {
 }
 .modalContent input,
 .modalContent select {
-    border: 1px solid #ccc;
+    border: 1px solid #000;
 }
-.modalContent input:focus,
-.modalContent select:focus {
-    border-color: #0d6efd;
-    outline: none;
-    
-}
-input.error,
-select.error {
-    border-color: red !important;
-}
-
-input.valid,
-select.valid {
-    border-color: #007bff;
-}
-
-#errorMessage {
-    color: red;
-    font-size: 0.9em;
-    margin-top: 5px;
-}
-
 /*LogInForm*/
 /*LogInForm Responsive*/
 @media (max-width: 900px) {
@@ -508,8 +485,7 @@ select.valid {
         width: 100%;
         font-size: 0.95em;
         box-sizing: border-box;
-    border: 1px solid #ccc;
-    
+    border: 1px solid black;
     
     }
 
@@ -522,8 +498,6 @@ select.valid {
         font-size: 1.3em;
     }
 }
-
-
 /*LogInForm Responsive*/
 /* CONTACT SECTION */
 
@@ -619,21 +593,6 @@ select.valid {
 
 .contact-btn:hover {
   background-color: #084298;
-}
-.contact-form input.error,
-.contact-form textarea.error {
-    border-color: red;
-}
-
-.contact-form input.valid,
-.contact-form textarea.valid {
-    border-color: #007bff;
-}
-
-.contact-form #contactError {
-    color: red;
-    font-size: 0.9em;
-    margin-top: 5px;
 }
 
 
