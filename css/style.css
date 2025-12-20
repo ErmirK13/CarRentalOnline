@@ -81,9 +81,9 @@ header {
     color: #007bff;
 }
 
-.login-btn {
+.register-btn {
     background-color: #007bff;
-    color: white !important;
+    color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -92,7 +92,7 @@ header {
     transition: background-color 0.3s;
 }
 
-.login-btn:hover {
+.register-btn:hover {
     background-color: #0056b3;
 }
 
@@ -819,6 +819,21 @@ header {
   color: #cfe2ff;
   transform: scale(1.2);
 }
+.contact-form input.error,
+.contact-form textarea.error {
+    border-color: red;
+}
+
+.contact-form input.valid,
+.contact-form textarea.valid {
+    border-color: #007bff;
+}
+
+.contact-form #contactError {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
 
 /* CONTACT RESPONSIVE*/
 @media (max-width: 900px) {
@@ -941,6 +956,41 @@ header {
     overflow-y: auto;
 }
 
+
+* {
+    box-sizing: border-box;
+}
+.modalContent input,
+.modalContent select {
+    border: 1px solid #ccc;
+}
+.modalContent input:focus,
+.modalContent select:focus {
+    border-color: #0d6efd;
+    outline: none;
+    
+}
+input.error,
+select.error {
+    border-color: red !important;
+}
+
+input.valid,
+select.valid {
+    border-color: #007bff;
+}
+
+#errorMessage {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+.modalContent input:focus,
+.modalContent select:focus {
+    border-color: #0d6efd;
+    outline: none;
+}
+
 .passwordWrapper {
     position: relative;
     width: 100%;
@@ -966,7 +1016,7 @@ header {
   padding: 10px;
   margin: 8px 0;
   box-sizing: border-box;
-  border: 1px solid #000;
+  border: 1px solid #666;
   border-radius: 5px;
 }
 
