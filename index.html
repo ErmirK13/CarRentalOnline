@@ -29,7 +29,7 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
-      <nav class="main-nav" id="mainNav">
+        <nav class="main-nav" id="mainNav">
           <a href="index.html">Home</a>
           <a href="about.html" class="active">About</a>
           <a href="services.html">Services</a>
@@ -285,21 +285,6 @@
           currentIndex = testimonials.length - 1;
         }
         showTestimonial(currentIndex);
-      });
-
-      const backToTop = document.getElementById("backToTop");
-
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 500) {
-          backToTop.style.display = "flex";
-        } else {
-          backToTop.style.display = "none";
-        }
-      });
-
-      backToTop.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     </script>
   </body>

@@ -25,7 +25,7 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
-         <nav class="main-nav" id="mainNav">
+        <nav class="main-nav" id="mainNav">
           <a href="index.html">Home</a>
           <a href="about.html" class="active">About</a>
           <a href="services.html">Services</a>
@@ -39,19 +39,41 @@
     <section class="services-section">
       <h1>Our Cars</h1>
 
+      <!-- FILTER BY TRANSMISSION -->
+      <label for="transmissionFilter">Select by Transmission:</label>
+      <select id="transmissionFilter">
+        <option value="All">All</option>
+        <option value="Manual">Manual</option>
+        <option value="Automatic">Automatic</option>
+      </select>
+
       <div class="services-container" id="cars-containers">
         <!-- CARD -->
         <div class="car-card">
           <img
-            src="images/car1.jpg"
-            alt="Car"
-            onclick="viewCarDetails('VW Golf', 50, 'Economy', 'Manual', 'images/car1.jpg')"
+            src="images/cars/golf/car1.jpg"
+            loading="lazy"
+            onclick="viewCarDetails(
+          'VW Golf',
+          50,
+          'Economy',
+          'Manual',
+          [
+            'images/cars/golf/car1.jpg',
+            'images/cars/golf/car1.jpg',
+            'images/cars/golf/golf7.jpg'
+          ]
+        )"
           />
           <h3>VW Golf</h3>
           <p>Economy · Manual</p>
           <span class="price">€50 / day</span>
           <button
-            onclick="viewCarDetails('VW Golf', 50, 'Economy', 'Manual', 'images/car1.jpg')"
+            onclick="viewCarDetails('VW Golf', 50, 'Economy', 'Manual', [
+          'images/cars/golf/car1.jpg',
+          'images/cars/golf/car1.jpg',
+          'images/cars/golf/golf7.jpg'
+        ])"
           >
             Read more
           </button>
@@ -59,31 +81,56 @@
 
         <div class="car-card">
           <img
-            src="images/car2.jpg"
+            src="images/cars/audi/car2.jpg"
             alt="Car"
-            onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic', 'images/car2.jpg')"
+            loading="lazy"
+            onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic',  [
+            'images/cars/audi/car2.jpg',
+            'images/cars/audi/car2.jpg',
+            'images/cars/audi/audiA4.jpg'
+          ])"
           />
           <h3>Audi A4</h3>
           <p>Sedan · Automatic</p>
           <span class="price">€90 / day</span>
           <button
-            onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic', 'images/car2.jpg')"
+            onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic', [
+            'images/cars/audi/car2.jpg',
+            'images/cars/audi/car2.jpg',
+            'images/cars/audi/audiA4.jpg'
+          ])"
           >
             Read more
           </button>
         </div>
 
+        <!--  BMW-X5 -->
         <div class="car-card">
           <img
-            src="images/car3.jpg"
-            alt="Car"
-            onclick="viewCarDetails('BMW X5', 120, 'Luxury SUV', 'Automatic', 'images/car3.jpg')"
+            src="images/cars/bmw-x5/car3.jpg"
+            loading="lazy"
+            onclick="viewCarDetails(
+    'BMW X5',
+    120,
+    'Luxury SUV',
+    'Automatic',
+     [
+            'images/cars/bmw-x5/car3.jpg',
+            'images/cars/bmw-x5/car3.jpg',
+            'images/cars/bmw-x5/bmwX5.jpg',
+          ]
+  )"
           />
+
           <h3>BMW X5</h3>
           <p>Luxury SUV · Automatic</p>
           <span class="price">€120 / day</span>
           <button
-            onclick="viewCarDetails('BMW X5', 120, 'Luxury SUV', 'Automatic', 'images/car3.jpg')"
+            onclick="viewCarDetails('BMW X5', 120, 'Luxury SUV', 'Automatic',  [
+            'images/cars/bmw-x5/car3.jpg',
+            'images/cars/bmw-x5/car3.jpg',
+            'images/cars/bmw-x5/bmwX5.jpg'
+          ])"
           >
             Read more
           </button>
@@ -91,15 +138,24 @@
 
         <div class="car-card">
           <img
-            src="images/car4.jpg"
+            src="images/cars/tiguan/car4.jpg"
             alt="Car"
-            onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic', 'images/car4.jpg')"
+            loading="lazy"
+            onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic',  [
+            'images/cars/tiguan/car4.jpg',
+            'images/cars/tiguan/car4.jpg',
+            'images/cars/tiguan/tiguan.jpg',
+          ])"
           />
           <h3>Tiguan R-Line</h3>
           <p>Economy · Automatic</p>
           <span class="price">€50 / day</span>
           <button
-            onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic', 'images/car4.jpg')"
+            onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic', [
+            'images/cars/tiguan/car4.jpg',
+            'images/cars/tiguan/car4.jpg',
+            'images/cars/tiguan/tiguan.jpg'
+          ])"
           >
             Read more
           </button>
@@ -107,15 +163,24 @@
 
         <div class="car-card">
           <img
-            src="images/car5.jpg"
+            src="images/cars/mercedes/car5.jpg"
             alt="Car"
-            onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual', 'images/car5.jpg')"
+            loading="lazy"
+            onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual',  [
+            'images/cars/mercedes/car5.jpg',
+            'images/cars/mercedes/car5.jpg',
+            'images/cars/mercedes/mercedes.jpg',
+          ])"
           />
           <h3>Mercedes S-Class</h3>
           <p>Economy · Manual</p>
           <span class="price">€50 / day</span>
           <button
-            onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual', 'images/car5.jpg')"
+            onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual', [
+            'images/cars/mercedes/car5.jpg',
+            'images/cars/mercedes/car5.jpg',
+            'images/cars/mercedes/mercedes.jpg'
+          ])"
           >
             Read more
           </button>
@@ -123,15 +188,24 @@
 
         <div class="car-card">
           <img
-            src="images/car6.jpg"
+            src="images/cars/rangeRover/car6.jpg"
             alt="Car"
-            onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', 'images/car6.jpg')"
+            loading="lazy"
+            onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', [
+            'images/cars/rangeRover/car6.jpg',
+            'images/cars/rangeRover/car6.jpg',
+            'images/cars/rangeRover/rangerover.jpg'
+          ])"
           />
           <h3>Range Rover Evoque</h3>
           <p>Economy · Manual</p>
           <span class="price">€50 / day</span>
           <button
-            onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', 'images/car6.jpg')"
+            onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', [
+            'images/cars/rangeRover/car6.jpg',
+            'images/cars/rangeRover/car6.jpg',
+            'images/cars/rangeRover/rangerover.jpg'
+          ])"
           >
             Read more
           </button>
@@ -139,15 +213,24 @@
 
         <div class="car-card">
           <img
-            src="images/car7.jpg"
+            src="images/cars/touareg/car7.jpg"
             alt="Car"
-            onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', 'images/car7.jpg')"
+            loading="lazy"
+            onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', [
+            'images/cars/touareg/car7.jpg',
+            'images/cars/touareg/car7.jpg',
+            'images/cars/touareg/touareg.jpg'
+          ])"
           />
           <h3>Touareg</h3>
           <p>Economy · Manual</p>
           <span class="price">€50 / day</span>
           <button
-            onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', 'images/car7.jpg')"
+            onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', [
+            'images/cars/touareg/car7.jpg',
+            'images/cars/touareg/car7.jpg',
+            'images/cars/touareg/touareg.jpg'
+          ])"
           >
             Read more
           </button>
@@ -212,5 +295,26 @@
     </footer>
 
     <script src="js/index.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // FILTER BY TRANSMISSION
+        const filterSelect = document.getElementById("transmissionFilter");
+        const carCards = document.querySelectorAll(".car-card");
+
+        filterSelect.addEventListener("change", () => {
+          const value = filterSelect.value;
+
+          carCards.forEach((card) => {
+            const text = card.querySelector("p").textContent;
+            if (value === "All" || text.includes(value)) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>

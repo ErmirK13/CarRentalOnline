@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth !important;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -580,6 +584,22 @@ header {
   gap: 30px;
 }
 
+/* FILTER BY TRANSMISSION */
+#transmissionFilter {
+  padding: 8px 12px;
+  font-size: 1em;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: 0.3s;
+}
+
+#transmissionFilter:focus {
+  border-color: #2072EF;
+  box-shadow: 0 0 5px rgba(32, 114, 239, 0.5);
+}
+
 /* SINGLE CARD */
 .car-card {
   background: #ffffff;
@@ -646,6 +666,11 @@ header {
 
   .car-card img {
     height: 160px;
+  }
+    
+  .filter-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

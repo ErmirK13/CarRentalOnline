@@ -1,4 +1,4 @@
-// MENU TOGGLE (si më parë)
+// MENU TOGGLE
 document.getElementById("menuToggle").onclick = function () {
   var nav = document.getElementById("mainNav");
   nav.classList.toggle("active");
@@ -16,8 +16,9 @@ signInModal.style.display = "flex";
 signUpModal.style.display = "none";
 
 // VIEW CAR DETAILS
-function viewCarDetails(name, price, type, transmission, imgSrc) {
-  const car = { name, price, type, transmission, imgSrc };
+function viewCarDetails(name, price, type, transmission, images) {
+  const car = { name, price, type, transmission, images };
+
   localStorage.setItem("selectedCar", JSON.stringify(car));
   window.location.href = "car-details.html";
 }
@@ -135,4 +136,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // REDIRECT TO HOME
     window.location.href = "index.html";
   });
+});
+
+// BACK TO TOP BUTTON
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 500) {
+    backToTop.style.display = "flex";
+  } else {
+    backToTop.style.display = "none";
+  }
+});
+
+backToTop.addEventListener("click", (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });

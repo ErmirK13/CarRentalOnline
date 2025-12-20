@@ -47,8 +47,6 @@
       .car-gallery {
         flex: 1;
         min-width: 300px;
-        display: flex;
-        flex-direction: column;
         gap: 10px;
       }
 
@@ -56,6 +54,7 @@
         width: 100%;
         border-radius: 8px;
         cursor: pointer;
+        object-fit: cover;
         transition: transform 0.3s;
       }
       .car-gallery img:hover {
@@ -239,27 +238,32 @@
 
       if (car) {
         document.getElementById("carName").textContent = car.name;
-        document.getElementById("carPrice").textContent = car.price;
+        document.getElementById("carPrice").textContent = `${car.price}`;
         document.getElementById("carType").textContent = "Type: " + car.type;
         document.getElementById("carTransmission").textContent =
-        "Transmission: " + car.transmission;
+          "Transmission: " + car.transmission;
 
         const gallery = document.getElementById("carGallery");
 
-        const images = [car.imgSrc, "images/car2.jpg", "images/car5.jpg"];
+        const images = car.images;
 
+        // MAIN IMAGE
         const mainImg = document.createElement("img");
         mainImg.src = images[0];
+        mainImg.loading = "lazy";
         mainImg.style.width = "100%";
         mainImg.style.borderRadius = "8px";
         gallery.appendChild(mainImg);
 
+        // THUMBNAILS
         images.slice(1).forEach((src) => {
           const thumb = document.createElement("img");
           thumb.src = src;
+          thumb.loading = "lazy";
           thumb.style.width = "100px";
           thumb.style.cursor = "pointer";
           thumb.style.marginTop = "10px";
+          thumb.style.marginRight = "10px";
           thumb.style.borderRadius = "8px";
 
           thumb.addEventListener("click", () => {
