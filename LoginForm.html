@@ -17,10 +17,10 @@
         <h2>Create an account</h2>
 
         <form id="SignUpform">
-
           <input type="text" id="firstName" placeholder="First Name" required />
           <input type="text" id="lastName" placeholder="Last Name" required />
           <input type="email" id="emailSignUp" placeholder="Email" required />
+
           <div class="passwordWrapper">
             <input
               type="password"
@@ -33,12 +33,6 @@
               onclick="togglePassword('passwordSignUp')"
             ></i>
           </div>
-
-            <input type="text" id="firstName" placeholder="First Name" required>
-    <input type="text" id="lastName" placeholder="Last Name" required>
-    <input type="email" id="emailSignUp" placeholder="Email" required>
-    <input type="password" id="passwordSignUp" placeholder="Password" required>
-   
 
           <div class="passwordWrapper">
             <input
@@ -56,16 +50,17 @@
           <!-- Checkbox for terms and conditions -->
           <label class="checkboxLabel">
             <input type="checkbox" required />
-            <span
-              >By registering an account, you agree
+            <span>
+              By registering an account, you agree
               <a href="#">Terms and conditions</a> and
-              <a href="#">Privacy policy</a> *</span
-            >
+              <a href="#">Privacy policy</a> *
+            </span>
           </label>
 
           <button type="submit" class="submitBtn">Register</button>
           <p id="loginError" style="color: red; text-align: center"></p>
         </form>
+
         <p class="textSwitch">
           Already have an account? <a href="#" id="toSignIn">Sign In</a>
         </p>
@@ -83,8 +78,8 @@
           <div class="passwordWrapper">
             <input
               type="password"
-              placeholder="Password"
               id="passwordSignIn"
+              placeholder="Password"
               required
             />
             <i
@@ -92,6 +87,7 @@
               onclick="togglePassword('passwordSignIn')"
             ></i>
           </div>
+
           <p id="registerError" style="color: red; text-align: center"></p>
           <button type="submit" class="submitBtn">Sign In</button>
         </form>

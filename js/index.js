@@ -310,16 +310,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
- function togglePassword(id) {
-  const input = document.getElementById(id);
-  input.type = input.type === "password" ? "text" : "password";
-}
+ 
 
 
 
 
 
->>>>>>> 17783b40b7ee07373efc1fa414d9ca6d34121d52
+
 // VIEW CAR DETAILS
 function viewCarDetails(name, price, type, transmission, images) {
   const car = { name, price, type, transmission, images };
