@@ -241,6 +241,8 @@ document.addEventListener("DOMContentLoaded", () => {
         input.classList.add("valid");
       }
     }
+   
+
 
     if (input.id === "email") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -292,6 +294,32 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+    contactForm.addEventListener("submit", e => {
+        e.preventDefault();
+        let valid = true;
+
+        [nameInput, emailInput, messageInput].forEach(input => {
+            if (!validateContactField(input)) valid = false;
+        });
+
+        if (valid) {
+            alert("Message sent successfully ✅");
+            contactForm.reset();
+            [nameInput, emailInput, messageInput].forEach(input => input.classList.remove("valid"));
+        }
+    });
+
+
+ function togglePassword(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
+
+
+
+
+
+>>>>>>> 17783b40b7ee07373efc1fa414d9ca6d34121d52
 // VIEW CAR DETAILS
 function viewCarDetails(name, price, type, transmission, images) {
   const car = { name, price, type, transmission, images };
@@ -304,7 +332,7 @@ function viewCarDetails(name, price, type, transmission, images) {
 const backToTop = document.getElementById("backToTop");
 
 window.addEventListener("scroll", () => {
-  if (window.scrollY > 500) {
+  if (window.scrollY > 200) {
     backToTop.style.display = "flex";
   } else {
     backToTop.style.display = "none";

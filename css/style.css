@@ -1,6 +1,33 @@
 html {
   scroll-behavior: smooth !important;
 }
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #0d6efd;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 50px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: background 0.3s, transform 0.3s;
+  z-index: 1000;
+}
+
+.back-to-top:hover {
+  background: #0d6efd;
+  transform: translateY(-3px);
+}
+.back-to-top i {
+  font-size: 12px;
+}
 
 body {
     font-family: Arial, sans-serif;
