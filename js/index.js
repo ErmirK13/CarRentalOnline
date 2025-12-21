@@ -1,3 +1,4 @@
+// TOGGLE MENU
 document.getElementById("menuToggle").onclick = function () {
   var nav = document.getElementById("mainNav");
   nav.classList.toggle("active");
@@ -241,8 +242,6 @@ document.addEventListener("DOMContentLoaded", () => {
         input.classList.add("valid");
       }
     }
-   
-
 
     if (input.id === "email") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -294,28 +293,28 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-    contactForm.addEventListener("submit", e => {
-        e.preventDefault();
-        let valid = true;
+contactForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let valid = true;
 
-        [nameInput, emailInput, messageInput].forEach(input => {
-            if (!validateContactField(input)) valid = false;
-        });
+  [nameInput, emailInput, messageInput].forEach((input) => {
+    if (!validateContactField(input)) valid = false;
+  });
 
-        if (valid) {
-            alert("Message sent successfully ✅");
-            contactForm.reset();
-            [nameInput, emailInput, messageInput].forEach(input => input.classList.remove("valid"));
-        }
-    });
+  if (valid) {
+    alert("Message sent successfully ✅");
+    contactForm.reset();
+    [nameInput, emailInput, messageInput].forEach((input) =>
+      input.classList.remove("valid")
+    );
+  }
+});
 
-
- 
-
-
-
-
-
+// TOGGLE PASSWORD
+function togglePassword(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
 
 // VIEW CAR DETAILS
 function viewCarDetails(name, price, type, transmission, images) {
