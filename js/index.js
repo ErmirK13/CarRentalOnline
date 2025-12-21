@@ -180,7 +180,7 @@ function validateSignUpField(input) {
 
   if (input.id === "passwordSignUp") {
     const passRegex =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
+      /^(?=.[0-9])(?=.[!@#$%^&*(),.?":{}|<>]).{6,}$/;
     if (!passRegex.test(input.value)) {
       input.classList.add("error");
       input.classList.remove("valid");
@@ -267,10 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return valid;
     }
-    function togglePassword(id) {
-  const input = document.getElementById(id);
-  input.type = input.type === "password" ? "text" : "password";
-}
+   
 
 
     [nameInput, emailInput, messageInput].forEach(input => {
@@ -291,8 +288,13 @@ document.addEventListener("DOMContentLoaded", () => {
             [nameInput, emailInput, messageInput].forEach(input => input.classList.remove("valid"));
         }
     });
+   
 });
 
+ function togglePassword(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
 
 
 
