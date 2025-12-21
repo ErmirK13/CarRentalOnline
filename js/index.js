@@ -267,6 +267,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return valid;
     }
+    function togglePassword(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
+
 
     [nameInput, emailInput, messageInput].forEach(input => {
         input.addEventListener("input", e => validateContactField(e.target));
@@ -303,32 +308,11 @@ function viewCarDetails(name, price, type, transmission, images) {
 
 
 
-
-
-
-  
-  
-
-  
-
-  
-
-    // REDIRECT TO HOME
-    
-  
-
-  
-
-    // REDIRECT TO HOME
-
-
-
-
 // BACK TO TOP BUTTON
 const backToTop = document.getElementById("backToTop");
 
 window.addEventListener("scroll", () => {
-  if (window.scrollY > 500) {
+  if (window.scrollY > 200) {
     backToTop.style.display = "flex";
   } else {
     backToTop.style.display = "none";
