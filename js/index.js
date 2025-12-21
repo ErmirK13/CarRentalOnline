@@ -3,39 +3,44 @@ document.getElementById("menuToggle").onclick = function () {
   nav.classList.toggle("active");
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+// TOGGLE PASSWORD
+function togglePassword(inputId) {
+  const input = document.getElementById(inputId);
+  input.type = input.type === "password" ? "text" : "password";
+}
 
+document.addEventListener("DOMContentLoaded", () => {
   fetch("LogInForm.html")
-    .then(res => res.text())
-    .then(html => {
+    .then((res) => res.text())
+    .then((html) => {
       document.body.insertAdjacentHTML("beforeend", html);
 
       const signUp = document.getElementById("SignUp");
       const signIn = document.getElementById("SignIn");
 
       // open SignUp
-      document.querySelectorAll(".register-btn").forEach(btn => {
+      document.querySelectorAll(".register-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           signUp.style.display = "flex";
         });
       });
 
       // switch SignUp -> SignIn
-      document.getElementById("toSignIn").addEventListener("click", e => {
+      document.getElementById("toSignIn").addEventListener("click", (e) => {
         e.preventDefault();
         signUp.style.display = "none";
         signIn.style.display = "flex";
       });
 
       // switch SignIn -> SignUp
-      document.getElementById("toSignUp").addEventListener("click", e => {
+      document.getElementById("toSignUp").addEventListener("click", (e) => {
         e.preventDefault();
         signIn.style.display = "none";
         signUp.style.display = "flex";
       });
 
       // close modal when clicking outside
-      window.addEventListener("click", e => {
+      window.addEventListener("click", (e) => {
         if (e.target === signUp) signUp.style.display = "none";
         if (e.target === signIn) signIn.style.display = "none";
       });
@@ -43,15 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
       // =======================
       // VALIDATION – SIGN IN
       // =======================
-      document.getElementById("SignInForm").addEventListener("submit", e => {
+      document.getElementById("SignInForm").addEventListener("submit", (e) => {
         e.preventDefault();
 
         let email = document.getElementById("loginEmail");
         let password = document.getElementById("passwordSignIn");
 
-        let valid =
-          validateSignInField(email) &
-          validateSignInField(password);
+        let valid = validateSignInField(email) & validateSignInField(password);
 
         if (valid) {
           alert("Login successful ✅");
@@ -59,8 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      ["loginEmail", "passwordSignIn"].forEach(id => {
-        document.getElementById(id).addEventListener("input", e => {
+      ["loginEmail", "passwordSignIn"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", (e) => {
           validateSignInField(e.target);
         });
       });
@@ -68,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // =======================
       // VALIDATION – SIGN UP
       // =======================
-      document.getElementById("SignUpform").addEventListener("submit", e => {
+      document.getElementById("SignUpform").addEventListener("submit", (e) => {
         e.preventDefault();
 
         const ids = [
@@ -76,12 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
           "lastName",
           "emailSignUp",
           "passwordSignUp",
-          "confirmPasswordSignUp"
+          "confirmPasswordSignUp",
         ];
 
         let valid = true;
 
-        ids.forEach(id => {
+        ids.forEach((id) => {
           if (!validateSignUpField(document.getElementById(id))) {
             valid = false;
           }
@@ -99,9 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "lastName",
         "emailSignUp",
         "passwordSignUp",
-        "confirmPasswordSignUp"
-      ].forEach(id => {
-        document.getElementById(id).addEventListener("input", e => {
+        "confirmPasswordSignUp",
+      ].forEach((id) => {
+        document.getElementById(id).addEventListener("input", (e) => {
           validateSignUpField(e.target);
         });
       });
@@ -179,8 +182,7 @@ function validateSignUpField(input) {
   }
 
   if (input.id === "passwordSignUp") {
-    const passRegex =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
+    const passRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
     if (!passRegex.test(input.value)) {
       input.classList.add("error");
       input.classList.remove("valid");
@@ -194,8 +196,7 @@ function validateSignUpField(input) {
   }
 
   if (input.id === "confirmPasswordSignUp") {
-    const password =
-      document.getElementById("passwordSignUp").value;
+    const password = document.getElementById("passwordSignUp").value;
     if (input.value !== password) {
       input.classList.add("error");
       input.classList.remove("valid");
@@ -215,83 +216,81 @@ function validateSignUpField(input) {
 // =======================
 
 document.addEventListener("DOMContentLoaded", () => {
-    const contactForm = document.querySelector(".contact-form");
-    const nameInput = document.getElementById("Name");
-    const emailInput = document.getElementById("email");
-    const messageInput = document.getElementById("message");
+  const contactForm = document.querySelector(".contact-form");
+  const nameInput = document.getElementById("Name");
+  const emailInput = document.getElementById("email");
+  const messageInput = document.getElementById("message");
 
-    let errorP = document.createElement("p");
-    errorP.id = "contactError";
-    contactForm.appendChild(errorP);
+  let errorP = document.createElement("p");
+  errorP.id = "contactError";
+  contactForm.appendChild(errorP);
 
-    function validateContactField(input) {
-        let valid = true;
-        errorP.textContent = "";
+  function validateContactField(input) {
+    let valid = true;
+    errorP.textContent = "";
 
-        if (input.id === "Name") {
-            if (!/^[A-Za-z\s]{3,}$/.test(input.value)) {
-                input.classList.add("error");
-                input.classList.remove("valid");
-                valid = false;
-                errorP.textContent = "Name must contain at least 3 letters and no numbers.";
-            } else {
-                input.classList.remove("error");
-                input.classList.add("valid");
-            }
-        }
-
-        if (input.id === "email") {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(input.value)) {
-                input.classList.add("error");
-                input.classList.remove("valid");
-                valid = false;
-                errorP.textContent = "Invalid email address.";
-            } else {
-                input.classList.remove("error");
-                input.classList.add("valid");
-            }
-        }
-
-        if (input.id === "message") {
-            if (input.value.length < 10) {
-                input.classList.add("error");
-                input.classList.remove("valid");
-                valid = false;
-                errorP.textContent = "Message must be at least 10 characters long.";
-            } else {
-                input.classList.remove("error");
-                input.classList.add("valid");
-            }
-        }
-
-        return valid;
+    if (input.id === "Name") {
+      if (!/^[A-Za-z\s]{3,}$/.test(input.value)) {
+        input.classList.add("error");
+        input.classList.remove("valid");
+        valid = false;
+        errorP.textContent =
+          "Name must contain at least 3 letters and no numbers.";
+      } else {
+        input.classList.remove("error");
+        input.classList.add("valid");
+      }
     }
 
-    [nameInput, emailInput, messageInput].forEach(input => {
-        input.addEventListener("input", e => validateContactField(e.target));
+    if (input.id === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(input.value)) {
+        input.classList.add("error");
+        input.classList.remove("valid");
+        valid = false;
+        errorP.textContent = "Invalid email address.";
+      } else {
+        input.classList.remove("error");
+        input.classList.add("valid");
+      }
+    }
+
+    if (input.id === "message") {
+      if (input.value.length < 10) {
+        input.classList.add("error");
+        input.classList.remove("valid");
+        valid = false;
+        errorP.textContent = "Message must be at least 10 characters long.";
+      } else {
+        input.classList.remove("error");
+        input.classList.add("valid");
+      }
+    }
+
+    return valid;
+  }
+
+  [nameInput, emailInput, messageInput].forEach((input) => {
+    input.addEventListener("input", (e) => validateContactField(e.target));
+  });
+
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    [nameInput, emailInput, messageInput].forEach((input) => {
+      if (!validateContactField(input)) valid = false;
     });
 
-    contactForm.addEventListener("submit", e => {
-        e.preventDefault();
-        let valid = true;
-
-        [nameInput, emailInput, messageInput].forEach(input => {
-            if (!validateContactField(input)) valid = false;
-        });
-
-        if (valid) {
-            alert("Message sent successfully ✅");
-            contactForm.reset();
-            [nameInput, emailInput, messageInput].forEach(input => input.classList.remove("valid"));
-        }
-    });
+    if (valid) {
+      alert("Message sent successfully ✅");
+      contactForm.reset();
+      [nameInput, emailInput, messageInput].forEach((input) =>
+        input.classList.remove("valid")
+      );
+    }
+  });
 });
-
-
-
-
-
 
 // VIEW CAR DETAILS
 function viewCarDetails(name, price, type, transmission, images) {
@@ -300,29 +299,6 @@ function viewCarDetails(name, price, type, transmission, images) {
   localStorage.setItem("selectedCar", JSON.stringify(car));
   window.location.href = "car-details.html";
 }
-
-
-
-
-
-
-  
-  
-
-  
-
-  
-
-    // REDIRECT TO HOME
-    
-  
-
-  
-
-    // REDIRECT TO HOME
-
-
-
 
 // BACK TO TOP BUTTON
 const backToTop = document.getElementById("backToTop");

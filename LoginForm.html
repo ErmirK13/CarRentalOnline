@@ -11,18 +11,27 @@
     />
   </head>
   <body>
-   
     <!-- SignUp Form -->
     <div id="SignUp" class="modal">
       <div class="modalContent">
         <h2>Create an account</h2>
 
         <form id="SignUpform">
-            <input type="text" id="firstName" placeholder="First Name" required>
-    <input type="text" id="lastName" placeholder="Last Name" required>
-    <input type="email" id="emailSignUp" placeholder="Email" required>
-    <input type="password" id="passwordSignUp" placeholder="Password" required>
-    <input type="password" id="confirmPasswordSignUp" placeholder="Confirm Password" required>
+          <input type="text" id="firstName" placeholder="First Name" required />
+          <input type="text" id="lastName" placeholder="Last Name" required />
+          <input type="email" id="emailSignUp" placeholder="Email" required />
+          <div class="passwordWrapper">
+            <input
+              type="password"
+              id="passwordSignUp"
+              placeholder="Password"
+              required
+            />
+            <i
+              class="fa-regular fa-eye toggle-password"
+              onclick="togglePassword('passwordSignUp')"
+            ></i>
+          </div>
 
           <div class="passwordWrapper">
             <input
@@ -48,7 +57,7 @@
           </label>
 
           <button type="submit" class="submitBtn">Register</button>
-           <p id="loginError" style="color:red; text-align:center;"></p>
+          <p id="loginError" style="color: red; text-align: center"></p>
         </form>
         <p class="textSwitch">
           Already have an account? <a href="#" id="toSignIn">Sign In</a>
@@ -62,7 +71,7 @@
         <h2>Sign In</h2>
 
         <form id="SignInForm">
-          <input type="email" id="loginEmail" placeholder="Email" required>
+          <input type="email" id="loginEmail" placeholder="Email" required />
 
           <div class="passwordWrapper">
             <input
@@ -76,7 +85,7 @@
               onclick="togglePassword('passwordSignIn')"
             ></i>
           </div>
-       <p id="registerError" style="color:red; text-align:center;"></p>
+          <p id="registerError" style="color: red; text-align: center"></p>
           <button type="submit" class="submitBtn">Sign In</button>
         </form>
 

@@ -80,7 +80,6 @@ header {
 .main-nav a:hover {
     color: #007bff;
 }
-
 .register-btn {
     background-color: #007bff;
     color: white;
@@ -539,7 +538,7 @@ header {
   color: #2072Ef;
 }
 
-/* 📱 Responsive  Testimonials*/
+/* 📱 Responsive Testimonials*/
 @media (max-width: 768px) {
   .testimonial-slider {
     max-width: 100%;

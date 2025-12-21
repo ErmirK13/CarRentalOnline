@@ -11,7 +11,7 @@
     />
   </head>
   <body>
-    <!-- HEADER -->
+    <!-- Header -->
     <header>
       <div class="header-container">
         <div class="brand">
@@ -21,7 +21,11 @@
           <div class="brand-name">CarRental</div>
         </div>
 
-        <button class="menu-toggle" id="menuToggle">
+        <button
+          class="menu-toggle"
+          aria-label="Toggle navigation"
+          id="menuToggle"
+        >
           <i class="fa-solid fa-bars"></i>
         </button>
 
@@ -30,7 +34,7 @@
           <a href="about.html" class="active">About</a>
           <a href="services.html">Services</a>
           <a href="contact.html">Contact</a>
-           <button class="register-btn">Register</button>
+          <button class="register-btn">Register</button>
         </nav>
       </div>
     </header>
@@ -53,24 +57,17 @@
           <img
             src="images/cars/golf/car1.jpg"
             loading="lazy"
-            onclick="viewCarDetails(
-          'VW Golf',
-          50,
-          'Economy',
-          'Manual',
+            onclick="viewCarDetails('VW Golf', 50, 'Economy', 'Manual',
           [
             'images/cars/golf/car1.jpg',
-            'images/cars/golf/car1.jpg',
             'images/cars/golf/golf7.jpg'
-          ]
-        )"
+          ])"
           />
           <h3>VW Golf</h3>
           <p>Economy · Manual</p>
           <span class="price">€50 / day</span>
           <button
             onclick="viewCarDetails('VW Golf', 50, 'Economy', 'Manual', [
-          'images/cars/golf/car1.jpg',
           'images/cars/golf/car1.jpg',
           'images/cars/golf/golf7.jpg'
         ])"
@@ -86,7 +83,6 @@
             loading="lazy"
             onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic',  [
             'images/cars/audi/car2.jpg',
-            'images/cars/audi/car2.jpg',
             'images/cars/audi/audiA4.jpg'
           ])"
           />
@@ -96,7 +92,6 @@
           <button
             onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic', [
             'images/cars/audi/car2.jpg',
-            'images/cars/audi/car2.jpg',
             'images/cars/audi/audiA4.jpg'
           ])"
           >
@@ -104,30 +99,20 @@
           </button>
         </div>
 
-        <!--  BMW-X5 -->
         <div class="car-card">
           <img
             src="images/cars/bmw-x5/car3.jpg"
             loading="lazy"
-            onclick="viewCarDetails(
-    'BMW X5',
-    120,
-    'Luxury SUV',
-    'Automatic',
-     [
-            'images/cars/bmw-x5/car3.jpg',
+            onclick="viewCarDetails('BMW X5', 120, 'Luxury SUV', 'Automatic', [
             'images/cars/bmw-x5/car3.jpg',
             'images/cars/bmw-x5/bmwX5.jpg',
-          ]
-  )"
+          ])"
           />
-
           <h3>BMW X5</h3>
           <p>Luxury SUV · Automatic</p>
           <span class="price">€120 / day</span>
           <button
             onclick="viewCarDetails('BMW X5', 120, 'Luxury SUV', 'Automatic',  [
-            'images/cars/bmw-x5/car3.jpg',
             'images/cars/bmw-x5/car3.jpg',
             'images/cars/bmw-x5/bmwX5.jpg'
           ])"
@@ -143,7 +128,6 @@
             loading="lazy"
             onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic',  [
             'images/cars/tiguan/car4.jpg',
-            'images/cars/tiguan/car4.jpg',
             'images/cars/tiguan/tiguan.jpg',
           ])"
           />
@@ -152,7 +136,6 @@
           <span class="price">€50 / day</span>
           <button
             onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic', [
-            'images/cars/tiguan/car4.jpg',
             'images/cars/tiguan/car4.jpg',
             'images/cars/tiguan/tiguan.jpg'
           ])"
@@ -168,7 +151,6 @@
             loading="lazy"
             onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual',  [
             'images/cars/mercedes/car5.jpg',
-            'images/cars/mercedes/car5.jpg',
             'images/cars/mercedes/mercedes.jpg',
           ])"
           />
@@ -177,7 +159,6 @@
           <span class="price">€50 / day</span>
           <button
             onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual', [
-            'images/cars/mercedes/car5.jpg',
             'images/cars/mercedes/car5.jpg',
             'images/cars/mercedes/mercedes.jpg'
           ])"
@@ -193,7 +174,6 @@
             loading="lazy"
             onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', [
             'images/cars/rangeRover/car6.jpg',
-            'images/cars/rangeRover/car6.jpg',
             'images/cars/rangeRover/rangerover.jpg'
           ])"
           />
@@ -202,7 +182,6 @@
           <span class="price">€50 / day</span>
           <button
             onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', [
-            'images/cars/rangeRover/car6.jpg',
             'images/cars/rangeRover/car6.jpg',
             'images/cars/rangeRover/rangerover.jpg'
           ])"
@@ -218,7 +197,6 @@
             loading="lazy"
             onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', [
             'images/cars/touareg/car7.jpg',
-            'images/cars/touareg/car7.jpg',
             'images/cars/touareg/touareg.jpg'
           ])"
           />
@@ -227,7 +205,6 @@
           <span class="price">€50 / day</span>
           <button
             onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', [
-            'images/cars/touareg/car7.jpg',
             'images/cars/touareg/car7.jpg',
             'images/cars/touareg/touareg.jpg'
           ])"
