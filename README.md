@@ -1,8 +1,5 @@
 Web Project – Car Rental Website
 👤 Autoret
 Amir Bejta Ermir Krosa
-linku :
+link : 
 https://github.com/ErmirK13/CarRentalOnline
-
-
-
