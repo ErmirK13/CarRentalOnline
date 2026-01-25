@@ -17,14 +17,15 @@
         <h2>Create an account</h2>
 
         <form id="SignUpform">
-          <input type="text" id="firstName" placeholder="First Name" required />
-          <input type="text" id="lastName" placeholder="Last Name" required />
-          <input type="email" id="emailSignUp" placeholder="Email" required />
+          <input type="text" id="firstName" name="firstname" placeholder="First Name" required />
+          <input type="text" id="lastName" name="lastname" placeholder="Last Name" required />
+          <input type="email" id="emailSignUp" name="emailSignUp" placeholder="Email" required />
 
           <div class="passwordWrapper">
             <input
               type="password"
               id="passwordSignUp"
+              name="passwordSignUp"
               placeholder="Password"
               required
             />
@@ -38,6 +39,7 @@
             <input
               type="password"
               id="confirmPasswordSignUp"
+              name="confirmPasswordSignUp"
               placeholder="Confirm Password"
               required
             />
@@ -49,7 +51,7 @@
 
           <!-- Checkbox for terms and conditions -->
           <label class="checkboxLabel">
-            <input type="checkbox" required />
+            <input type="checkbox" name="checkbox" required />
             <span>
               By registering an account, you agree
               <a href="#">Terms and conditions</a> and
@@ -57,12 +59,12 @@
             </span>
           </label>
 
-          <button type="submit" class="submitBtn">Register</button>
-          <p id="loginError" style="color: red; text-align: center"></p>
+          <button type="submit" class="submitBtn" name="submit">Register</button>
+          <p id="loginError" name="loginError" style="color: red; text-align: center"></p>
         </form>
 
         <p class="textSwitch">
-          Already have an account? <a href="#" id="toSignIn">Sign In</a>
+          Already have an account? <a href="#" id="toSignIn" name="toSignIn">Sign In</a>
         </p>
       </div>
     </div>
@@ -73,12 +75,13 @@
         <h2>Sign In</h2>
 
         <form id="SignInForm">
-          <input type="email" id="loginEmail" placeholder="Email" required />
+          <input type="email" id="loginEmail" name="loginEmail" placeholder="Email" required />
 
           <div class="passwordWrapper">
             <input
               type="password"
               id="passwordSignIn"
+              name="passwordSignIn"
               placeholder="Password"
               required
             />
@@ -89,7 +92,7 @@
           </div>
 
           <p id="registerError" style="color: red; text-align: center"></p>
-          <button type="submit" class="submitBtn">Sign In</button>
+          <button type="submit"name="submit" class="submitBtn">Sign In</button>
         </form>
 
         <p class="textSwitch">
