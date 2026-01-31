@@ -1,17 +1,12 @@
 <?php
+session_start();
 include "database.php";
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    $sql = "DELETE FROM users WHERE id = $id";
-    $result = $connection->query($sql);
-
-    if ($result) {
-        header("Location: index.php");
-        exit;
-    } else {
-        echo "Gabim gjate fshirjes: " . $connection->error;
-    }
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: index.php");
+    exit();
 }
-?>
+
+$id = $_GET['id'];
+mysqli_query($connection, "DELETE FROM users WHERE id=$id");
+header("Location: Dashboard.php");

@@ -11,7 +11,7 @@ function togglePassword(inputId) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("LogInForm.html")
+  fetch("LogInForm.php")
     .then((res) => res.text())
     .then((html) => {
       document.body.insertAdjacentHTML("beforeend", html);
@@ -274,23 +274,6 @@ document.addEventListener("DOMContentLoaded", () => {
   [nameInput, emailInput, messageInput].forEach((input) => {
     input.addEventListener("input", (e) => validateContactField(e.target));
   });
-
-  contactForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    let valid = true;
-
-    [nameInput, emailInput, messageInput].forEach((input) => {
-      if (!validateContactField(input)) valid = false;
-    });
-
-    if (valid) {
-      alert("Message sent successfully ✅");
-      contactForm.reset();
-      [nameInput, emailInput, messageInput].forEach((input) =>
-        input.classList.remove("valid")
-      );
-    }
-  });
 });
 
 contactForm.addEventListener("submit", (e) => {
@@ -305,7 +288,7 @@ contactForm.addEventListener("submit", (e) => {
     alert("Message sent successfully ✅");
     contactForm.reset();
     [nameInput, emailInput, messageInput].forEach((input) =>
-      input.classList.remove("valid")
+      input.classList.remove("valid"),
     );
   }
 });
@@ -321,7 +304,7 @@ function viewCarDetails(name, price, type, transmission, images) {
   const car = { name, price, type, transmission, images };
 
   localStorage.setItem("selectedCar", JSON.stringify(car));
-  window.location.href = "car-details.html";
+  window.location.href = "car-details.php";
 }
 
 // BACK TO TOP BUTTON

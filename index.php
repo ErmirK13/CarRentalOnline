@@ -1,124 +1,300 @@
+<?php
+session_start()
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Users Table</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CarRentalOnline</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
+
 <body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo">
+          <img class="logo-img" src="images/logo.png" alt="Logo" />
+        </div>
+        <div class="brand-name">CarRental</div>
+      </div>
 
-<h1>Lista e Users</h1>
-<h2><a href="create.php">+ Shto User</a></h2>
+      <button
+        class="menu-toggle"
+        aria-label="Toggle navigation"
+        id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
 
-<div class="table-container">
-<table>
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>first_name</th>
-            <th>last_name</th>
-            <th>email</th>
-            <th>password</th>
-            <th>role</th>
-            <th>created_at</th>
-            <th>action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        include "database.php";
+      <nav class="main-nav" id="mainNav">
+        <a href="index.php">Home</a>
+        <a href="about.php">About</a>
+        <a href="services.php">Services</a>
+        <a href="contact.php">Contact</a>
 
-        $sql = "SELECT * FROM users";
-        $result = $connection->query($sql);
+        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+          <a href="Dashboard.php">Dashboard</a>
+          <a href="logout.php" class="register-btn">Logout</a>
+        <?php elseif (isset($_SESSION['user_id'])): ?>
+          <a href="logout.php" class="register-btn">Logout</a>
+        <?php else: ?>
+          <a href="LoginForm.php" class="register-btn">Login</a>
+        <?php endif; ?>
+      </nav>
 
-        while ($row = $result->fetch_assoc()) {
-            echo "
-            <tr>
-                <td>{$row['id']}</td>
-                <td>{$row['first_name']}</td>
-                <td>{$row['last_name']}</td>
-                <td>{$row['email']}</td>
-                <td>{$row['password']}</td>
-                <td>{$row['role']}</td>
-                <td>{$row['created_at']}</td>
-                <td class='action'>
-                    <a href='edit.php?id={$row['id']}'>Edit</a>
-                    <a href='delete.php?id={$row['id']}'>Delete</a>
-                </td>
-            </tr>
-            ";
-        }
-        ?>
-    </tbody>
-</table>
-</div>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    padding: 20px;
-}
+    </div>
+  </header>
 
-h1 {
-    color: #333;
-}
+  <!-- Home Section -->
+  <section class="home">
+    <div class="home-container">
+      <div class="home-text">
+        <h1>
+          <span>BEST CAR</span><br />
+          RENTAL DEALS<br />
+          TODAY!
+        </h1>
+        <p>
+          Rent the best cars at the best prices. Easy booking,fast pickup, and
+          trusted service.
+        </p>
+        <div class="home-search">
+          <input type="text" placeholder="Pick-up Location" />
+          <input type="date" />
+          <input type="date" />
+          <button class="search">Search Now</button>
+        </div>
+      </div>
+      <div class="home-image">
+        <img src="images/Home.jpg" alt="Rental Car" />
+      </div>
+    </div>
+  </section>
 
-a {
-    text-decoration: none;
-    color: white;
-    background: #007bff;
-    padding: 6px 12px;
-    border-radius: 5px;
-}
+  <!-- How It Works Section -->
+  <section id="about" class="about-us-cards">
+    <h2>How It Works</h2>
+    <div class="how-it-works-section">
+      <div class="card location">
+        <div class="card-header">
+          <i class="fa-solid fa-location-dot"></i>
+          <h2>Location & Search</h2>
+        </div>
+        <ul>
+          <li>
+            Select your pick-up location, which can be a city center, airport,
+            or a specific drop-off point.
+          </li>
+          <li>
+            Enter the start and end dates of your rental period to search for
+            available cars.
+          </li>
+        </ul>
+      </div>
 
-a:hover {
-    background: #0056b3;
-}
+      <div class="card booking">
+        <div class="card-header">
+          <i class="fa-solid fa-hand-pointer"></i>
+          <h2>Booking & Payment</h2>
+        </div>
+        <ul>
+          <li>
+            Choose a car that fits your needs and add any optional extras.
+          </li>
+          <li>
+            Complete the reservation directly through our website and finalize
+            the payment online.
+          </li>
+          <li>
+            You will receive a confirmation email containing your voucher, the
+            rental company's details, and pick-up instructions.
+          </li>
+        </ul>
+      </div>
 
-.table-container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
+      <div class="card pickup">
+        <div class="card-header">
+          <i class="fa-solid fa-car"></i>
+          <h2>Pick-Up & Drive</h2>
+        </div>
+        <ul>
+          <li>
+            At the counter, you will need to present your voucher,
+            passport/ID, driver's license, and a credit card.
+          </li>
+          <li>
+            Sign the rental agreement, collect the keys, and enjoy your
+            journey!
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2>What Our Clients Say</h2>
 
-thead {
-    background: #343a40;
-    color: white;
-}
+    <div class="testimonial-slider">
+      <button class="prev">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
 
-th, td {
-    padding: 10px;
-    text-align: center;
-}
+      <div class="testimonial-card active">
+        <div class="avatar-user">
+          <i class="fa-solid fa-user"></i>
+        </div>
 
-tr:nth-child(even) {
-    background: #f2f2f2;
-}
+        <div class="stars">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
 
-tr:hover {
-    background: #dce9ff;
-}
+        <p>
+          "Amazing service! The car was clean and ready on time. Highly
+          recommended!"
+        </p>
+        <h4>John Doe</h4>
+        <span>Prishtina</span>
+      </div>
 
-.action a {
-    background: #28a745;
-    margin: 2px;
-}
+      <div class="testimonial-card">
+        <div class="avatar-user">
+          <i class="fa-solid fa-user"></i>
+        </div>
 
-.action a:last-child {
-    background: #dc3545;
-}
+        <div class="stars">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+        </div>
 
-.action a:hover {
-    opacity: 0.8;
-}
-</style>
+        <p>
+          "Very easy booking process and friendly staff. Will rent again!"
+        </p>
+        <h4>Anna Smith</h4>
+        <span>Tirana</span>
+      </div>
 
+      <div class="testimonial-card">
+        <div class="avatar-user">
+          <i class="fa-solid fa-user"></i>
+        </div>
 
+        <div class="stars">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
 
+        <p>"Best car rental experience so far. Great prices and support!"</p>
+        <h4>Mark Johnson</h4>
+        <span>Skopje</span>
+      </div>
+
+      <button class="next">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="footer-brand">CarRental</div>
+        <p>
+          Rent the best cars at the best prices. Easy booking, fast pickup,
+          and trusted service.
+        </p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Account</h4>
+          <a href="#">Profile</a>
+          <a href="#">Settings</a>
+          <a href="#">Billing</a>
+          <a href="#">Notifications</a>
+        </div>
+        <div class="footer-column">
+          <h4>About</h4>
+          <a href="#">Services</a>
+          <a href="#">Pricing</a>
+          <a href="#">Contact</a>
+          <a href="#">Careers</a>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <a href="#">Community</a>
+          <a href="#">Help Center</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 CarRental. All Rights Reserved.</p>
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+      <i class="fa-solid fa-arrow-up"></i>
+      TOP
+    </a>
+  </footer>
+
+  <!-- -- JavaScript Files -->
+  <script src="js/index.js"></script>
+  <script>
+    const testimonials = document.querySelectorAll(".testimonial-card");
+    const prevBtn = document.querySelector(".prev");
+    const nextBtn = document.querySelector(".next");
+
+    let currentIndex = 0;
+
+    function showTestimonial(index) {
+      testimonials.forEach((item) => item.classList.remove("active"));
+      testimonials[index].classList.add("active");
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex++;
+      if (currentIndex >= testimonials.length) {
+        currentIndex = 0;
+      }
+      showTestimonial(currentIndex);
+    });
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex--;
+      if (currentIndex < 0) {
+        currentIndex = testimonials.length - 1;
+      }
+      showTestimonial(currentIndex);
+    });
+  </script>
 </body>
+
 </html>

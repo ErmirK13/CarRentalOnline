@@ -1,53 +1,29 @@
 <?php
+session_start();
 include "database.php";
 
-$id = "";
-$first_name = "";
-$last_name = "";
-$email = "";
-$role = "";
-$errorMessage = "";
-
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM users WHERE id = $id";
-    $result = $connection->query($sql);
-    $row = $result->fetch_assoc();
-
-    if (!$row) {
-        header("Location: index.php");
-        exit;
-    }
-
-    $first_name = $row['first_name'];
-    $last_name  = $row['last_name'];
-    $email      = $row['email'];
-    $role       = $row['role'];
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: index.php");
+    exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id         = $_POST['id'];
-    $first_name = $_POST['first_name'];
-    $last_name  = $_POST['last_name'];
-    $email      = $_POST['email'];
-    $role       = $_POST['role'];
+$id = $_GET['id'];
 
-    if (empty($first_name) || empty($last_name) || empty($email) || empty($role)) {
-        $errorMessage = "Te gjitha fushat duhet te plotesohen!";
-    } else {
-        $sql = "UPDATE users 
-                SET first_name='$first_name', last_name='$last_name', email='$email', role='$role' 
-                WHERE id=$id";
+if (isset($_POST['update'])) {
+    $first = $_POST['first_name'];
+    $last = $_POST['last_name'];
+    $role = $_POST['role'];
 
-        if ($connection->query($sql)) {
-            header("Location: index.php");
-            exit;
-        } else {
-            $errorMessage = "Gabim gjate update: " . $connection->error;
-        }
-    }
+    mysqli_query($connection,
+        "UPDATE users SET first_name='$first', last_name='$last', role='$role' WHERE id=$id"
+    );
+    header("Location: Dashboard.php");
 }
+
+$result = mysqli_query($connection, "SELECT * FROM users WHERE id=$id");
+$user = mysqli_fetch_assoc($result);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -144,24 +120,16 @@ body {
         <div class="error"><?= $errorMessage ?></div>
     <?php endif; ?>
 
-    <form method="post">
-        <input type="hidden" name="id" value="<?= $id ?>">
+    <form method="POST">
+  <input type="text" name="first_name" value="<?= $user['first_name'] ?>">
+  <input type="text" name="last_name" value="<?= $user['last_name'] ?>">
+  <select name="role">
+    <option value="user">User</option>
+    <option value="admin">Admin</option>
+  </select>
+  <button name="update">Update</button>
+</form>
 
-        <label>First Name</label>
-        <input type="text" name="first_name" value="<?= $first_name ?>">
-
-        <label>Last Name</label>
-        <input type="text" name="last_name" value="<?= $last_name ?>">
-
-        <label>Email</label>
-        <input type="email" name="email" value="<?= $email ?>">
-
-        <label>Role</label>
-        <input type="text" name="role" value="<?= $role ?>">
-
-        <button type="submit">Update</button>
-        <a href="index.php">Cancel</a>
-    </form>
 </div>
 
 </body>
