@@ -1,14 +1,12 @@
 <?php
 session_start();
-include "database.php";
+include "../includes/database.php";
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php");
+    header("Location: ../pages/index.php");
     exit();
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,9 +17,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 </head>
 
 <body>
+    <h2>Welcome, <?php echo $_SESSION['first_name']; ?> 👋</h2>
     <div style="display:flex; justify-content:space-between;">
         <h1>Lista e Users</h1>
-        <a href="logout.php" style="background:#dc3545;">Logout</a>
+        <a href="../auth/logout.php" style="background:#dc3545;">Logout</a>
     </div>
 
     <h2><a href="create.php">+ Shto User</a></h2>
@@ -42,7 +41,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             </thead>
             <tbody>
                 <?php
-                include "database.php";
 
                 $sql = "SELECT * FROM users";
                 $result = $connection->query($sql);
@@ -163,9 +161,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             }
         }
     </style>
-
-
-
 </body>
 
 </html>

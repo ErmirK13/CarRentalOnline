@@ -1,8 +1,7 @@
 <?php
 session_start();
-include "database.php";
+include "../includes/database.php";
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +10,7 @@ include "database.php";
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Services</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -19,39 +18,7 @@ include "database.php";
 
 <body>
   <!-- Header -->
-  <header>
-    <div class="header-container">
-      <div class="brand">
-        <div class="logo">
-          <img class="logo-img" src="images/logo.png" alt="Logo" />
-        </div>
-        <div class="brand-name">CarRental</div>
-      </div>
-
-      <button
-        class="menu-toggle"
-        aria-label="Toggle navigation"
-        id="menuToggle">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-
-      <nav class="main-nav" id="mainNav">
-        <a href="index.php">Home</a>
-        <a href="about.php">About</a>
-        <a href="services.php">Services</a>
-        <a href="contact.php">Contact</a>
-
-        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-          <a href="Dashboard.php">Dashboard</a>
-          <a href="logout.php" class="register-btn">Logout</a>
-        <?php elseif (isset($_SESSION['user_id'])): ?>
-          <a href="logout.php" class="register-btn">Logout</a>
-        <?php else: ?>
-          <a href="LoginForm.php" class="register-btn">Login</a>
-        <?php endif; ?>
-      </nav>
-    </div>
-  </header>
+  <?php include '../includes/header.php'; ?>
 
   <!-- SERVICES -->
   <section class="services-section">
@@ -69,20 +36,20 @@ include "database.php";
       <!-- CARD -->
       <div class="car-card">
         <img
-          src="images/cars/golf/car1.jpg"
+          src="../images/cars/golf/car1.jpg"
           loading="lazy"
           onclick="viewCarDetails('VW Golf', 50, 'Economy', 'Manual',
           [
-            'images/cars/golf/car1.jpg',
-            'images/cars/golf/golf7.jpg'
+            '../images/cars/golf/car1.jpg',
+            '../images/cars/golf/golf7.jpg'
           ])" />
         <h3>VW Golf</h3>
         <p>Economy · Manual</p>
         <span class="price">€50 / day</span>
         <button
           onclick="viewCarDetails('VW Golf', 50, 'Economy', 'Manual', [
-          'images/cars/golf/car1.jpg',
-          'images/cars/golf/golf7.jpg'
+          '../images/cars/golf/car1.jpg',
+          '../images/cars/golf/golf7.jpg'
         ])">
           Read more
         </button>
@@ -90,20 +57,20 @@ include "database.php";
 
       <div class="car-card">
         <img
-          src="images/cars/audi/car2.jpg"
+          src="../images/cars/audi/car2.jpg"
           alt="Car"
           loading="lazy"
           onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic',  [
-            'images/cars/audi/car2.jpg',
-            'images/cars/audi/audiA4.jpg'
+            '../images/cars/audi/car2.jpg',
+            '../images/cars/audi/audiA4.jpg'
           ])" />
         <h3>Audi A4</h3>
         <p>Sedan · Automatic</p>
         <span class="price">€90 / day</span>
         <button
           onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic', [
-            'images/cars/audi/car2.jpg',
-            'images/cars/audi/audiA4.jpg'
+            '../images/cars/audi/car2.jpg',
+            '../images/cars/audi/audiA4.jpg'
           ])">
           Read more
         </button>
@@ -111,19 +78,19 @@ include "database.php";
 
       <div class="car-card">
         <img
-          src="images/cars/bmw-x5/car3.jpg"
+          src="../images/cars/bmw-x5/car3.jpg"
           loading="lazy"
           onclick="viewCarDetails('BMW X5', 120, 'Luxury SUV', 'Automatic', [
-            'images/cars/bmw-x5/car3.jpg',
-            'images/cars/bmw-x5/bmwX5.jpg',
+            '../images/cars/bmw-x5/car3.jpg',
+            '../images/cars/bmw-x5/bmwX5.jpg',
           ])" />
         <h3>BMW X5</h3>
         <p>Luxury SUV · Automatic</p>
         <span class="price">€120 / day</span>
         <button
           onclick="viewCarDetails('BMW X5', 120, 'Luxury SUV', 'Automatic',  [
-            'images/cars/bmw-x5/car3.jpg',
-            'images/cars/bmw-x5/bmwX5.jpg'
+            '../images/cars/bmw-x5/car3.jpg',
+            '../images/cars/bmw-x5/bmwX5.jpg'
           ])">
           Read more
         </button>
@@ -131,20 +98,20 @@ include "database.php";
 
       <div class="car-card">
         <img
-          src="images/cars/tiguan/car4.jpg"
+          src="../images/cars/tiguan/car4.jpg"
           alt="Car"
           loading="lazy"
           onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic',  [
-            'images/cars/tiguan/car4.jpg',
-            'images/cars/tiguan/tiguan.jpg',
+            '../images/cars/tiguan/car4.jpg',
+            '../images/cars/tiguan/tiguan.jpg',
           ])" />
         <h3>Tiguan R-Line</h3>
         <p>Economy · Automatic</p>
         <span class="price">€50 / day</span>
         <button
           onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic', [
-            'images/cars/tiguan/car4.jpg',
-            'images/cars/tiguan/tiguan.jpg'
+            '../images/cars/tiguan/car4.jpg',
+            '../images/cars/tiguan/tiguan.jpg'
           ])">
           Read more
         </button>
@@ -152,20 +119,20 @@ include "database.php";
 
       <div class="car-card">
         <img
-          src="images/cars/mercedes/car5.jpg"
+          src="../images/cars/mercedes/car5.jpg"
           alt="Car"
           loading="lazy"
           onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual',  [
-            'images/cars/mercedes/car5.jpg',
-            'images/cars/mercedes/mercedes.jpg',
+            '../images/cars/mercedes/car5.jpg',
+            '../images/cars/mercedes/mercedes.jpg',
           ])" />
         <h3>Mercedes S-Class</h3>
         <p>Economy · Manual</p>
         <span class="price">€50 / day</span>
         <button
           onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual', [
-            'images/cars/mercedes/car5.jpg',
-            'images/cars/mercedes/mercedes.jpg'
+            '../images/cars/mercedes/car5.jpg',
+            '../images/cars/mercedes/mercedes.jpg'
           ])">
           Read more
         </button>
@@ -173,20 +140,20 @@ include "database.php";
 
       <div class="car-card">
         <img
-          src="images/cars/rangeRover/car6.jpg"
+          src="../images/cars/rangeRover/car6.jpg"
           alt="Car"
           loading="lazy"
           onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', [
-            'images/cars/rangeRover/car6.jpg',
-            'images/cars/rangeRover/rangerover.jpg'
+            '../images/cars/rangeRover/car6.jpg',
+            '../images/cars/rangeRover/rangerover.jpg'
           ])" />
         <h3>Range Rover Evoque</h3>
         <p>Economy · Manual</p>
         <span class="price">€50 / day</span>
         <button
           onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', [
-            'images/cars/rangeRover/car6.jpg',
-            'images/cars/rangeRover/rangerover.jpg'
+            '../images/cars/rangeRover/car6.jpg',
+            '../images/cars/rangeRover/rangerover.jpg'
           ])">
           Read more
         </button>
@@ -194,20 +161,20 @@ include "database.php";
 
       <div class="car-card">
         <img
-          src="images/cars/touareg/car7.jpg"
+          src="../images/cars/touareg/car7.jpg"
           alt="Car"
           loading="lazy"
           onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', [
-            'images/cars/touareg/car7.jpg',
-            'images/cars/touareg/touareg.jpg'
+            '../images/cars/touareg/car7.jpg',
+            '../images/cars/touareg/touareg.jpg'
           ])" />
         <h3>Touareg</h3>
         <p>Economy · Manual</p>
         <span class="price">€50 / day</span>
         <button
           onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', [
-            'images/cars/touareg/car7.jpg',
-            'images/cars/touareg/touareg.jpg'
+            '../images/cars/touareg/car7.jpg',
+            '../images/cars/touareg/touareg.jpg'
           ])">
           Read more
         </button>
@@ -215,57 +182,10 @@ include "database.php";
     </div>
   </section>
 
-  <footer class="site-footer">
-    <div class="footer-container">
-      <div class="footer-left">
-        <div class="footer-brand">CarRental</div>
-        <p>
-          Rent the best cars at the best prices. Easy booking, fast pickup,
-          and trusted service.
-        </p>
-        <div class="footer-social">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="Twitter">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-      </div>
-      <div class="footer-links">
-        <div class="footer-column">
-          <h4>Account</h4>
-          <a href="#">Profile</a>
-          <a href="#">Settings</a>
-          <a href="#">Billing</a>
-          <a href="#">Notifications</a>
-        </div>
-        <div class="footer-column">
-          <h4>About</h4>
-          <a href="#">Services</a>
-          <a href="#">Pricing</a>
-          <a href="#">Contact</a>
-          <a href="#">Careers</a>
-        </div>
-        <div class="footer-column">
-          <h4>Company</h4>
-          <a href="#">Community</a>
-          <a href="#">Help Center</a>
-          <a href="#">Support</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 CarRental. All Rights Reserved.</p>
-    </div>
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top" id="backToTop">
-      <i class="fa-solid fa-arrow-up"></i>
-      TOP
-    </a>
-  </footer>
+  <!-- Footer -->
+  <?php include '../includes/footer.php'; ?>
 
-  <script src="js/index.js"></script>
+  <script src="../js/index.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {

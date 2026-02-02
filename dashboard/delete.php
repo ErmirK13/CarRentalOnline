@@ -1,12 +1,12 @@
 <?php
 session_start();
-include "database.php";
+include "../includes/database.php";
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php");
+    header("Location: ../pages/index.php");
     exit();
 }
 
 $id = $_GET['id'];
 mysqli_query($connection, "DELETE FROM users WHERE id=$id");
-header("Location: Dashboard.php");
+header("Location: dashboard.php");

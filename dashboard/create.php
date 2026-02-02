@@ -1,9 +1,9 @@
 <?php
 session_start();
-include "database.php";
+include "../includes/database.php";
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: index.php");
+    header("Location: ../pages/index.php");
     exit();
 }
 
@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
             VALUES ('$first','$last','$email','$password','$role')";
 
     mysqli_query($connection, $sql);
-    header("Location: Dashboard.php");
+    header("Location: dashboard.php");
 }
 ?>
 

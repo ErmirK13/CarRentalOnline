@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "database.php";
+include "../includes/database.php";
 
 $firstName = "";
 $lastName = "";
@@ -10,7 +10,10 @@ $password = "";
 $errorMessage = "";
 $successMessage = "";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$loginError = "";
+
+// SignUp
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['firstName'])) {
   $firstName = $_POST['firstName'];
   $lastName  = $_POST['lastName'];
   $email     = $_POST['emailSignUp'];
@@ -36,6 +39,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
   }
 }
+
+// SignIn
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['loginEmail'])) {
+  $emailLogin = $_POST['loginEmail'];
+  $passwordLogin = $_POST['passwordSignIn'];
+
+  $result = mysqli_query($conn, "SELECT * FROM users WHERE email='$emailLogin'");
+
+  if (mysqli_num_rows($result) === 1) {
+    $user = mysqli_fetch_assoc($result);
+
+    if (password_verify($passwordLogin, $user['password'])) {
+
+      // SESSION
+      $_SESSION['user_id'] = $user['id'];
+      $_SESSION['role'] = $user['role'];
+      $_SESSION['first_name'] = $user['first_name'];
+
+      // REDIRECT
+      if ($user['role'] === 'admin') {
+        header("Location: ../dashboard/dashboard.php");
+      } else {
+        header("Location: ../pages/index.php");
+      }
+      exit;
+    } else {
+      $loginError = "Passwordi nuk eshte korrekt";
+    }
+  } else {
+    $loginError = "Ky email nuk ekziston";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login/Register Form</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -57,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="modalContent">
       <h2>Create an account</h2>
 
-      <form id="SignUpform" method="POST" action="">
+      <form id="SignUpform" method="POST">
         <input type="text" name="firstName" id="firstName" placeholder="First Name" required />
         <input type="text" name="lastName" id="lastName" placeholder="Last Name" required />
         <input type="email" name="emailSignUp" id="emailSignUp" placeholder="Email" required />
@@ -111,13 +146,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="modalContent">
       <h2>Sign In</h2>
 
-      <form id="SignInForm">
-        <input type="email" id="loginEmail" placeholder="Email" required />
+      <form id="SignInForm" method="POST">
+        <input type="email" name="loginEmail" id="loginEmail" placeholder="Email" required />
 
         <div class="passwordWrapper">
           <input
             type="password"
             id="passwordSignIn"
+            name="passwordSignIn"
             placeholder="Password"
             required />
           <i
@@ -135,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
   </div>
 
-  <script src="js/index.js"></script>
+  <script src="../js/index.js"></script>
 </body>
 
 </html>

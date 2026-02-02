@@ -1,8 +1,14 @@
 // TOGGLE MENU
-document.getElementById("menuToggle").onclick = function () {
-  var nav = document.getElementById("mainNav");
-  nav.classList.toggle("active");
-};
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.getElementById("menuToggle");
+  const nav = document.getElementById("mainNav");
+
+  if (menuToggle && nav) {
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("active");
+    });
+  }
+});
 
 // TOGGLE PASSWORD
 function togglePassword(inputId) {
@@ -11,7 +17,7 @@ function togglePassword(inputId) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("LogInForm.php")
+  fetch("../auth/login.php")
     .then((res) => res.text())
     .then((html) => {
       document.body.insertAdjacentHTML("beforeend", html);
@@ -40,26 +46,20 @@ document.addEventListener("DOMContentLoaded", () => {
         signUp.style.display = "flex";
       });
 
-      // close modal when clicking outside
       window.addEventListener("click", (e) => {
         if (e.target === signUp) signUp.style.display = "none";
         if (e.target === signIn) signIn.style.display = "none";
       });
 
-      // =======================
       // VALIDATION – SIGN IN
-      // =======================
       document.getElementById("SignInForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-
         let email = document.getElementById("loginEmail");
         let password = document.getElementById("passwordSignIn");
 
-        let valid = validateSignInField(email) & validateSignInField(password);
+        let valid = validateSignInField(email) && validateSignInField(password);
 
-        if (valid) {
-          alert("Login successful ✅");
-          signIn.style.display = "none";
+        if (!valid) {
+          e.preventDefault();
         }
       });
 
@@ -69,12 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
 
-      // =======================
       // VALIDATION – SIGN UP
-      // =======================
       document.getElementById("SignUpform").addEventListener("submit", (e) => {
-        e.preventDefault();
-
         const ids = [
           "firstName",
           "lastName",
@@ -82,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
           "passwordSignUp",
           "confirmPasswordSignUp",
         ];
-
         let valid = true;
 
         ids.forEach((id) => {
@@ -91,10 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-        if (valid) {
-          alert("Registration completed successfully ✅");
-          signUp.style.display = "none";
-          signIn.style.display = "flex";
+        if (!valid) {
+          e.preventDefault();
         }
       });
 
@@ -112,9 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// =======================
 // VALIDATION FUNCTIONS
-// =======================
 
 function validateSignInField(input) {
   const error = document.getElementById("registerError");
@@ -212,87 +203,92 @@ function validateSignUpField(input) {
   return valid;
 }
 
-// =======================
 // CONTACT FORM VALIDATION
-// =======================
 
 document.addEventListener("DOMContentLoaded", () => {
-  const contactForm = document.querySelector(".contact-form");
-  const nameInput = document.getElementById("Name");
-  const emailInput = document.getElementById("email");
-  const messageInput = document.getElementById("message");
+  const contactForm = document.getElementById("contactForm");
 
-  let errorP = document.createElement("p");
-  errorP.id = "contactError";
-  contactForm.appendChild(errorP);
+  if (contactForm) {
+    const nameInput = document.getElementById("Name");
+    const emailInput = document.getElementById("email");
+    const messageInput = document.getElementById("message");
 
-  function validateContactField(input) {
-    let valid = true;
-    errorP.textContent = "";
+    let errorP = document.createElement("p");
+    errorP.id = "contactError";
+    errorP.style.color = "red";
+    contactForm.appendChild(errorP);
 
-    if (input.id === "Name") {
-      if (!/^[A-Za-z\s]{3,}$/.test(input.value)) {
-        input.classList.add("error");
-        input.classList.remove("valid");
-        valid = false;
-        errorP.textContent =
-          "Name must contain at least 3 letters and no numbers.";
-      } else {
-        input.classList.remove("error");
-        input.classList.add("valid");
+    function validateContactField(input) {
+      let valid = true;
+
+      if (input.id === "Name") {
+        if (!/^[A-Za-z\s]{3,}$/.test(input.value)) {
+          input.classList.add("error");
+          input.classList.remove("valid");
+          valid = false;
+          errorP.textContent =
+            "Name must contain at least 3 letters and no numbers.";
+        } else {
+          input.classList.remove("error");
+          input.classList.add("valid");
+          errorP.textContent = "";
+        }
       }
+
+      if (input.id === "email") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(input.value)) {
+          input.classList.add("error");
+          input.classList.remove("valid");
+          valid = false;
+          errorP.textContent = "Invalid email address.";
+        } else {
+          input.classList.remove("error");
+          input.classList.add("valid");
+          errorP.textContent = "";
+        }
+      }
+
+      if (input.id === "message") {
+        if (input.value.length < 10) {
+          input.classList.add("error");
+          input.classList.remove("valid");
+          valid = false;
+          errorP.textContent = "Message must be at least 10 characters long.";
+        } else {
+          input.classList.remove("error");
+          input.classList.add("valid");
+          errorP.textContent = "";
+        }
+      }
+      return valid;
     }
 
-    if (input.id === "email") {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(input.value)) {
-        input.classList.add("error");
-        input.classList.remove("valid");
-        valid = false;
-        errorP.textContent = "Invalid email address.";
-      } else {
-        input.classList.remove("error");
-        input.classList.add("valid");
+    [nameInput, emailInput, messageInput].forEach((input) => {
+      if (input) {
+        input.addEventListener("input", (e) => validateContactField(e.target));
       }
-    }
+    });
 
-    if (input.id === "message") {
-      if (input.value.length < 10) {
-        input.classList.add("error");
-        input.classList.remove("valid");
-        valid = false;
-        errorP.textContent = "Message must be at least 10 characters long.";
-      } else {
-        input.classList.remove("error");
-        input.classList.add("valid");
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      let isValid = true;
+
+      [nameInput, emailInput, messageInput].forEach((input) => {
+        if (!validateContactField(input)) isValid = false;
+      });
+
+      if (isValid) {
+        alert("Message sent successfully ✅");
+        contactForm.reset();
+        [nameInput, emailInput, messageInput].forEach((input) =>
+          input.classList.remove("valid"),
+        );
+        errorP.textContent = "";
       }
-    }
-
-    return valid;
+    });
   }
-
-  [nameInput, emailInput, messageInput].forEach((input) => {
-    input.addEventListener("input", (e) => validateContactField(e.target));
-  });
 });
-
-contactForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let valid = true;
-
-  [nameInput, emailInput, messageInput].forEach((input) => {
-    if (!validateContactField(input)) valid = false;
-  });
-
-  if (valid) {
-    alert("Message sent successfully ✅");
-    contactForm.reset();
-    [nameInput, emailInput, messageInput].forEach((input) =>
-      input.classList.remove("valid"),
-    );
-  }
-});
-
 // TOGGLE PASSWORD
 function togglePassword(id) {
   const input = document.getElementById(id);
@@ -318,7 +314,11 @@ window.addEventListener("scroll", () => {
   }
 });
 
-backToTop.addEventListener("click", (e) => {
-  e.preventDefault();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+const back = document.getElementById("backToTop");
+
+if (back) {
+  back.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}

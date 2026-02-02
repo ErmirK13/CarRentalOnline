@@ -107,7 +107,7 @@ header {
 .main-nav a:hover {
     color: #007bff;
 }
-.register-btn {
+.button {
     background-color: #007bff;
     color: white !important;
     border: none;
@@ -118,7 +118,7 @@ header {
     transition: background-color 0.3s;
 }
 
-.register-btn:hover {
+.button:hover {
     background-color: #0056b3;
 }
 
