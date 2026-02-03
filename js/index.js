@@ -270,25 +270,22 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    contactForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      let isValid = true;
+   contactForm.addEventListener("submit", (e) => {
+    let isValid = true;
 
-      [nameInput, emailInput, messageInput].forEach((input) => {
-        if (!validateContactField(input)) isValid = false;
-      });
-
-      if (isValid) {
-        alert("Message sent successfully ✅");
-        contactForm.reset();
-        [nameInput, emailInput, messageInput].forEach((input) =>
-          input.classList.remove("valid"),
-        );
-        errorP.textContent = "";
-      }
+    [nameInput, emailInput, messageInput].forEach((input) => {
+        if (!validateContactField(input)) {
+            isValid = false;
+        }
     });
+
+    if (!isValid) {
+        e.preventDefault(); 
+    } 
+});
   }
 });
+
 // TOGGLE PASSWORD
 function togglePassword(id) {
   const input = document.getElementById(id);

@@ -12,6 +12,8 @@ if (isset($_POST['submit'])) {
 
   if (mysqli_query($conn, $sql)) {
     echo "<script>alert('Message sent successfully');</script>";
+    echo "<script>window.location.href = 'contact.php';</script>";
+    exit();
   } else {
     echo mysqli_error($conn);
   }
