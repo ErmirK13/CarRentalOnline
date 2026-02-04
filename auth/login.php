@@ -1,5 +1,8 @@
 <?php
 session_start();
+include "../includes/database.php";
+
+
 $email = "";
 $password = "";
 $loginError = "";
