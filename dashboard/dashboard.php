@@ -2,6 +2,7 @@
 session_start();
 include "../includes/database.php";
 
+// Kontrollo nëse përdoruesi është admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../pages/index.php");
     exit();
@@ -10,61 +11,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Users Table</title>
-</head>
-
-<body>
-    <h2>Welcome, <?php echo $_SESSION['first_name']; ?> 👋</h2>
-    <div style="display:flex; justify-content:space-between;">
-        <h1>Lista e Users</h1>
-        <a href="../auth/logout.php" style="background:#dc3545;">Logout</a>
-    </div>
-
-    <h2><a href="create.php">+ Shto User</a></h2>
-
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>first_name</th>
-                    <th>last_name</th>
-                    <th>email</th>
-                    <th>role</th>
-                    <th>created_at</th>
-                    <th>action</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-
-                $sql = "SELECT * FROM users";
-                $result = $connection->query($sql);
-
-                while ($row = $result->fetch_assoc()) {
-                    echo "
-            <tr>
-                <td>{$row['ID']}</td>
-                <td>{$row['first_name']}</td>
-                <td>{$row['last_name']}</td>
-                <td>{$row['email']}</td>
-                <td>{$row['role']}</td>
-                <td>{$row['created_at']}</td>
-                <td class='action'>
-                    <a href='edit.php?id={$row['ID']}'>Edit</a>
-                    <a href='delete.php?id={$row['ID']}'>Delete</a>
-                </td>
-            </tr>
-            ";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
+    <title>Admin Dashboard - Users List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -72,7 +21,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             padding: 20px;
         }
 
-        h1 {
+        h1, h2 {
             color: #333;
         }
 
@@ -82,6 +31,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             background: #007bff;
             padding: 6px 12px;
             border-radius: 5px;
+            margin: 2px;
+            display: inline-block;
         }
 
         a:hover {
@@ -92,7 +43,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
         }
 
         table {
@@ -105,8 +57,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             color: white;
         }
 
-        th,
-        td {
+        th, td {
             padding: 10px;
             text-align: center;
         }
@@ -119,12 +70,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             background: #dce9ff;
         }
 
-        .action a {
+        .action a.edit {
             background: #28a745;
-            margin: 2px;
         }
 
-        .action a:last-child {
+        .action a.delete {
             background: #dc3545;
         }
 
@@ -133,13 +83,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         }
 
         @media (max-width: 768px) {
-
-            table,
-            thead,
-            tbody,
-            th,
-            td,
-            tr {
+            table, thead, tbody, th, td, tr {
                 display: block;
             }
 
@@ -160,7 +104,72 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                 font-weight: bold;
             }
         }
-    </style>
-</body>
 
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar a.logout {
+            background: #dc3545;
+        }
+
+        .top-bar a.add-user {
+            background: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h2>Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?> 👋</h2>
+        <div>
+            <a href="create.php" class="add-user">+ Add User</a>
+            <a href="../auth/logout.php" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <h1>Users List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Merr të gjithë përdoruesit nga DB
+                $sql = "SELECT * FROM users";
+                $result = $conn->query($sql);
+
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>
+                            <td data-label='ID'>{$row['id']}</td>
+                            <td data-label='First Name'>{$row['first_name']}</td>
+                            <td data-label='Last Name'>{$row['last_name']}</td>
+                            <td data-label='Email'>{$row['email']}</td>
+                            <td data-label='Role'>{$row['role']}</td>
+                            <td data-label='Created At'>{$row['created_at']}</td>
+                            <td class='action'>
+                                <a href='edit.php?id={$row['id']}' class='edit'>Edit</a>
+                                <a href='delete.php?id={$row['id']}' class='delete'>Delete</a>
+                            </td>
+                        </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='7'>No users found.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</body>
 </html>

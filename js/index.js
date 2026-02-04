@@ -11,14 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // TOGGLE PASSWORD
-function togglePassword(id) {
-  const input = document.getElementById(id);
-  input.type = input.type === "password" ? "text" : "password";
-}
 document.addEventListener("DOMContentLoaded", () => {
   // ======================
   // TOGGLE PASSWORD
   // ======================
+  function togglePassword(id) {
+    const input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
+  }
+
+  // Lidh toggle-password për të gjitha ikonat
   
   // ======================
   // LOGIN VALIDATION
@@ -29,13 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginPassword = document.getElementById("passwordSignIn");
     const loginErrorDiv = document.getElementById("registerError");
 
-    loginForm.addEventListener("submit", (e) => {
-      let validEmail = validateLoginField(loginEmail);
-      let validPassword = validateLoginField(loginPassword);
-
-      if (!validEmail || !validPassword) {
-        e.preventDefault(); // stop form submission if there are errors
-      }
+    loginForm.addEventListener("submit", () => {
+      validateLoginField(loginEmail);
+      validateLoginField(loginPassword);
     });
 
     [loginEmail, loginPassword].forEach(input => {
@@ -43,14 +41,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function validateLoginField(input) {
-      let valid = true;
       loginErrorDiv.textContent = "";
+      let valid = true;
 
       if (input.id === "loginEmail") {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(input.value)) {
           valid = false;
-          loginErrorDiv.textContent = "Invalid email address.";
+          loginErrorDiv.textContent = "Email i pavlefshëm.";
           input.classList.add("error");
         } else {
           input.classList.remove("error");
@@ -60,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (input.id === "passwordSignIn") {
         if (input.value.length < 6) {
           valid = false;
-          loginErrorDiv.textContent = "Password must be at least 6 characters.";
+          loginErrorDiv.textContent = "Password duhet të ketë minimum 6 karaktere.";
           input.classList.add("error");
         } else {
           input.classList.remove("error");
@@ -85,41 +83,25 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const signUpErrorDiv = document.getElementById("loginError");
 
-    signupForm.addEventListener("submit", (e) => {
-      let valid = true;
-      let errorMessage = "";
-
-      Object.values(signupFields).forEach(input => {
-        const result = validateSignupField(input);
-        if (!result.valid) {
-          valid = false;
-          errorMessage = result.message; // capture the last error
-        }
-      });
-
-      if (!valid) {
-        signUpErrorDiv.textContent = errorMessage;
-        e.preventDefault(); // stop form submission if there are errors
-      } else {
-        signUpErrorDiv.textContent = "";
-      }
+    signupForm.addEventListener("submit", () => {
+      Object.values(signupFields).forEach(input => validateSignupField(input));
     });
 
     Object.values(signupFields).forEach(input => {
-      input.addEventListener("input", () => {
-        const result = validateSignupField(input);
-        if (result.valid) signUpErrorDiv.textContent = "";
-      });
+      input.addEventListener("input", () => validateSignupField(input));
     });
 
     function validateSignupField(input) {
+      signUpErrorDiv.textContent = "";
       let valid = true;
-      let message = "";
 
       if (input.id === "firstName" || input.id === "lastName") {
         if (!/^[A-Za-z]{3,}$/.test(input.value)) {
           valid = false;
-          message = "First and last name must be at least 3 letters and contain no numbers.";
+          signUpErrorDiv.textContent = "Emri dhe mbiemri duhet të kenë minimum 3 shkronja dhe pa numra.";
+          input.classList.add("error");
+        } else {
+          input.classList.remove("error");
         }
       }
 
@@ -127,32 +109,39 @@ document.addEventListener("DOMContentLoaded", () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(input.value)) {
           valid = false;
-          message = "Invalid email address.";
+          signUpErrorDiv.textContent = "Email i pavlefshëm.";
+          input.classList.add("error");
+        } else {
+          input.classList.remove("error");
         }
       }
 
       if (input.id === "passwordSignUp") {
-        const passRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*]).{6,}$/;
+        const passRegex = /^(?=.*[0-9])(?=.*[.!@#$%^&*]).{6,}$/;
         if (!passRegex.test(input.value)) {
           valid = false;
-          message = "Password must be at least 6 characters, include a number and a symbol.";
+          signUpErrorDiv.textContent = "Password duhet të ketë minimum 6 karaktere, një numër dhe një simbol.";
+          input.classList.add("error");
+        } else {
+          input.classList.remove("error");
         }
       }
 
       if (input.id === "confirmPasswordSignUp") {
         if (input.value !== signupFields.passwordSignUp.value) {
           valid = false;
-          message = "Passwords do not match.";
+          signUpErrorDiv.textContent = "Password-et nuk përputhen.";
+          input.classList.add("error");
+        } else {
+          input.classList.remove("error");
         }
       }
 
-      if (!valid) input.classList.add("error");
-      else input.classList.remove("error");
-
-      return { valid, message };
+      return valid;
     }
   }
 });
+
 
 // CONTACT FORM VALIDATION
 
