@@ -11,197 +11,148 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // TOGGLE PASSWORD
-function togglePassword(inputId) {
-  const input = document.getElementById(inputId);
+function togglePassword(id) {
+  const input = document.getElementById(id);
   input.type = input.type === "password" ? "text" : "password";
 }
-
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("../auth/login.php")
-    .then((res) => res.text())
-    .then((html) => {
-      document.body.insertAdjacentHTML("beforeend", html);
+  // ======================
+  // TOGGLE PASSWORD
+  // ======================
+  
+  // ======================
+  // LOGIN VALIDATION
+  // ======================
+  const loginForm = document.getElementById("SignInForm");
+  if (loginForm) {
+    const loginEmail = document.getElementById("loginEmail");
+    const loginPassword = document.getElementById("passwordSignIn");
+    const loginErrorDiv = document.getElementById("registerError");
 
-      const signUp = document.getElementById("SignUp");
-      const signIn = document.getElementById("SignIn");
+    loginForm.addEventListener("submit", (e) => {
+      let validEmail = validateLoginField(loginEmail);
+      let validPassword = validateLoginField(loginPassword);
 
-      // open SignUp
-      document.querySelectorAll(".register-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          signUp.style.display = "flex";
-        });
-      });
+      if (!validEmail || !validPassword) {
+        e.preventDefault(); // stop form submission if there are errors
+      }
+    });
 
-      // switch SignUp -> SignIn
-      document.getElementById("toSignIn").addEventListener("click", (e) => {
-        e.preventDefault();
-        signUp.style.display = "none";
-        signIn.style.display = "flex";
-      });
+    [loginEmail, loginPassword].forEach(input => {
+      input.addEventListener("input", () => validateLoginField(input));
+    });
 
-      // switch SignIn -> SignUp
-      document.getElementById("toSignUp").addEventListener("click", (e) => {
-        e.preventDefault();
-        signIn.style.display = "none";
-        signUp.style.display = "flex";
-      });
+    function validateLoginField(input) {
+      let valid = true;
+      loginErrorDiv.textContent = "";
 
-      window.addEventListener("click", (e) => {
-        if (e.target === signUp) signUp.style.display = "none";
-        if (e.target === signIn) signIn.style.display = "none";
-      });
+      if (input.id === "loginEmail") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(input.value)) {
+          valid = false;
+          loginErrorDiv.textContent = "Invalid email address.";
+          input.classList.add("error");
+        } else {
+          input.classList.remove("error");
+        }
+      }
 
-      // VALIDATION – SIGN IN
-      document.getElementById("SignInForm").addEventListener("submit", (e) => {
-        let email = document.getElementById("loginEmail");
-        let password = document.getElementById("passwordSignIn");
+      if (input.id === "passwordSignIn") {
+        if (input.value.length < 6) {
+          valid = false;
+          loginErrorDiv.textContent = "Password must be at least 6 characters.";
+          input.classList.add("error");
+        } else {
+          input.classList.remove("error");
+        }
+      }
 
-        let valid = validateSignInField(email) && validateSignInField(password);
+      return valid;
+    }
+  }
 
-        if (!valid) {
-          e.preventDefault();
+  // ======================
+  // SIGNUP VALIDATION
+  // ======================
+  const signupForm = document.getElementById("SignUpForm");
+  if (signupForm) {
+    const signupFields = {
+      firstName: document.getElementById("firstName"),
+      lastName: document.getElementById("lastName"),
+      emailSignUp: document.getElementById("emailSignUp"),
+      passwordSignUp: document.getElementById("passwordSignUp"),
+      confirmPasswordSignUp: document.getElementById("confirmPasswordSignUp")
+    };
+    const signUpErrorDiv = document.getElementById("loginError");
+
+    signupForm.addEventListener("submit", (e) => {
+      let valid = true;
+      let errorMessage = "";
+
+      Object.values(signupFields).forEach(input => {
+        const result = validateSignupField(input);
+        if (!result.valid) {
+          valid = false;
+          errorMessage = result.message; // capture the last error
         }
       });
 
-      ["loginEmail", "passwordSignIn"].forEach((id) => {
-        document.getElementById(id).addEventListener("input", (e) => {
-          validateSignInField(e.target);
-        });
-      });
+      if (!valid) {
+        signUpErrorDiv.textContent = errorMessage;
+        e.preventDefault(); // stop form submission if there are errors
+      } else {
+        signUpErrorDiv.textContent = "";
+      }
+    });
 
-      // VALIDATION – SIGN UP
-      document.getElementById("SignUpform").addEventListener("submit", (e) => {
-        const ids = [
-          "firstName",
-          "lastName",
-          "emailSignUp",
-          "passwordSignUp",
-          "confirmPasswordSignUp",
-        ];
-        let valid = true;
-
-        ids.forEach((id) => {
-          if (!validateSignUpField(document.getElementById(id))) {
-            valid = false;
-          }
-        });
-
-        if (!valid) {
-          e.preventDefault();
-        }
-      });
-
-      [
-        "firstName",
-        "lastName",
-        "emailSignUp",
-        "passwordSignUp",
-        "confirmPasswordSignUp",
-      ].forEach((id) => {
-        document.getElementById(id).addEventListener("input", (e) => {
-          validateSignUpField(e.target);
-        });
+    Object.values(signupFields).forEach(input => {
+      input.addEventListener("input", () => {
+        const result = validateSignupField(input);
+        if (result.valid) signUpErrorDiv.textContent = "";
       });
     });
+
+    function validateSignupField(input) {
+      let valid = true;
+      let message = "";
+
+      if (input.id === "firstName" || input.id === "lastName") {
+        if (!/^[A-Za-z]{3,}$/.test(input.value)) {
+          valid = false;
+          message = "First and last name must be at least 3 letters and contain no numbers.";
+        }
+      }
+
+      if (input.id === "emailSignUp") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(input.value)) {
+          valid = false;
+          message = "Invalid email address.";
+        }
+      }
+
+      if (input.id === "passwordSignUp") {
+        const passRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*]).{6,}$/;
+        if (!passRegex.test(input.value)) {
+          valid = false;
+          message = "Password must be at least 6 characters, include a number and a symbol.";
+        }
+      }
+
+      if (input.id === "confirmPasswordSignUp") {
+        if (input.value !== signupFields.passwordSignUp.value) {
+          valid = false;
+          message = "Passwords do not match.";
+        }
+      }
+
+      if (!valid) input.classList.add("error");
+      else input.classList.remove("error");
+
+      return { valid, message };
+    }
+  }
 });
-
-// VALIDATION FUNCTIONS
-
-function validateSignInField(input) {
-  const error = document.getElementById("registerError");
-  error.textContent = "";
-
-  let valid = true;
-
-  if (input.id === "loginEmail") {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(input.value)) {
-      input.classList.add("error");
-      input.classList.remove("valid");
-      valid = false;
-      error.textContent = "Invalid email address.";
-    } else {
-      input.classList.remove("error");
-      input.classList.add("valid");
-    }
-  }
-
-  if (input.id === "passwordSignIn") {
-    if (input.value.length < 6) {
-      input.classList.add("error");
-      input.classList.remove("valid");
-      valid = false;
-      error.textContent = "Password must be at least 6 characters long.";
-    } else {
-      input.classList.remove("error");
-      input.classList.add("valid");
-    }
-  }
-
-  return valid;
-}
-
-function validateSignUpField(input) {
-  const error = document.getElementById("loginError");
-  error.textContent = "";
-
-  let valid = true;
-
-  if (input.id === "firstName" || input.id === "lastName") {
-    if (!/^[A-Za-z]{3,}$/.test(input.value)) {
-      input.classList.add("error");
-      input.classList.remove("valid");
-      valid = false;
-      error.textContent =
-        "First name and last name must contain at least 3 letters and no numbers.";
-    } else {
-      input.classList.remove("error");
-      input.classList.add("valid");
-    }
-  }
-
-  if (input.id === "emailSignUp") {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(input.value)) {
-      input.classList.add("error");
-      input.classList.remove("valid");
-      valid = false;
-      error.textContent = "Invalid email address.";
-    } else {
-      input.classList.remove("error");
-      input.classList.add("valid");
-    }
-  }
-
-  if (input.id === "passwordSignUp") {
-    const passRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
-    if (!passRegex.test(input.value)) {
-      input.classList.add("error");
-      input.classList.remove("valid");
-      valid = false;
-      error.textContent =
-        "Password must contain at least 6 characters, one number, and one symbol.";
-    } else {
-      input.classList.remove("error");
-      input.classList.add("valid");
-    }
-  }
-
-  if (input.id === "confirmPasswordSignUp") {
-    const password = document.getElementById("passwordSignUp").value;
-    if (input.value !== password) {
-      input.classList.add("error");
-      input.classList.remove("valid");
-      valid = false;
-      error.textContent = "Passwords do not match.";
-    } else {
-      input.classList.remove("error");
-      input.classList.add("valid");
-    }
-  }
-
-  return valid;
-}
 
 // CONTACT FORM VALIDATION
 
@@ -226,8 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
           input.classList.add("error");
           input.classList.remove("valid");
           valid = false;
-          errorP.textContent =
-            "Name must contain at least 3 letters and no numbers.";
+          errorP.textContent = "Name must contain at least 3 letters and no numbers.";
         } else {
           input.classList.remove("error");
           input.classList.add("valid");

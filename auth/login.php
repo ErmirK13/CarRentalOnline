@@ -1,49 +1,13 @@
 <?php
 session_start();
-include "../includes/database.php";
-
-$firstName = "";
-$lastName = "";
 $email = "";
 $password = "";
-
-$errorMessage = "";
-$successMessage = "";
-
 $loginError = "";
 
-// SignUp
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['firstName'])) {
-  $firstName = $_POST['firstName'];
-  $lastName  = $_POST['lastName'];
-  $email     = $_POST['emailSignUp'];
-  $password  = $_POST['password'];
-
-  if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
-    $errorMessage = "Te gjitha fushat duhet te plotesohen";
-  } else {
-    $check = mysqli_query($conn, "SELECT id FROM users WHERE email='$email'");
-    if (mysqli_num_rows($check) > 0) {
-      $errorMessage = "Ky email ekziston";
-    } else {
-      $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-      $sql = "INSERT INTO users (first_name, last_name, email, password)
-                    VALUES ('$firstName', '$lastName', '$email', '$hashedPassword')";
-
-      if (mysqli_query($conn, $sql)) {
-        $successMessage = "Regjistrimi u krye me sukses";
-      } else {
-        $errorMessage = "Gabim gjate regjistrimit: " . mysqli_error($conn);
-      }
-    }
-  }
-}
-
-// SignIn
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['loginEmail'])) {
   $emailLogin = $_POST['loginEmail'];
   $passwordLogin = $_POST['passwordSignIn'];
+  
 
   $result = mysqli_query($conn, "SELECT * FROM users WHERE email='$emailLogin'");
 
@@ -51,13 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['loginEmail'])) {
     $user = mysqli_fetch_assoc($result);
 
     if (password_verify($passwordLogin, $user['password'])) {
-
-      // SESSION
       $_SESSION['user_id'] = $user['id'];
       $_SESSION['role'] = $user['role'];
       $_SESSION['first_name'] = $user['first_name'];
 
-      // REDIRECT
       if ($user['role'] === 'admin') {
         header("Location: ../dashboard/dashboard.php");
       } else {
@@ -75,103 +36,176 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['loginEmail'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login/Register Form</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - CarRentalOnline</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Login qendër */
+  .login-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-page {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 40px 30px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+
+  .login-page h2 {
+    color: #007bff;
+    margin-bottom: 25px;
+    font-size: 2em;
+  }
+
+  .login-page input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+  }
+
+  .passwordWrapper {
+    position: relative;
+  }
+
+  .passwordWrapper input {
+    padding-right: 40px;
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #007bff;
+  }
+
+  .submitBtn {
+    width: 100%;
+    padding: 14px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+  }
+
+  .submitBtn:hover {
+    background-color: #0056b3;
+  }
+
+  #errorMessage {
+    color: red;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+  }
+
+  .textSwitch {
+    margin-top: 15px;
+    font-size: 0.9em;
+  }
+
+  .textSwitch a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .textSwitch a:hover {
+    text-decoration: underline;
+  }
+  .login-page input {
+  width: 90%;
+  padding: 16px 15px;    /* nga 12px 15px → më të vogla */
+  margin: 8px 0;        /* pak më pak hapësirë mes inputeve */
+  border-radius: 6px;   /* pak më e vogël se 8px */
+  border: 1px solid #ccc;
+     
+}
+ .login-page input:valid {
+  border-color: #007bff; /* blu kur është i vlefshëm */
+}
+
+.login-page input.error {
+  border-color: red; /* kuq kur ka gabim */
+}
+
+  @media (max-width: 480px) {
+    .login-page {
+      width: 90%;       /* zvogëlohet pak, mbetet në qendër */
+    padding: 30px 20px;
+    }
+    .login-page h2 {
+      font-size: 1.5em;
+    }
+   
+   
+
+  .login-page input {
+    padding: 14px 12px; /* inputet pak më kompakte */
+  }
+
+  .submitBtn {
+    padding: 12px;
+    font-size: 1em;
+  }
+}
+
+  
+</style>
 </head>
-
 <body>
-  <!-- SignUp Form -->
-  <div id="SignUp" class="modal">
-    <div class="modalContent">
-      <h2>Create an account</h2>
 
-      <form id="SignUpform" method="POST">
-        <input type="text" name="firstName" id="firstName" placeholder="First Name" required />
-        <input type="text" name="lastName" id="lastName" placeholder="Last Name" required />
-        <input type="email" name="emailSignUp" id="emailSignUp" placeholder="Email" required />
+  <!-- Header -->
+  <?php include '../includes/header.php'; ?>
 
-        <div class="passwordWrapper">
-          <input
-            type="password"
-            id="passwordSignUp"
-            name="password"
-            placeholder="Password"
-            required />
-          <i
-            class="fa-regular fa-eye toggle-password"
-            onclick="togglePassword('passwordSignUp')"></i>
-        </div>
-
-        <div class="passwordWrapper">
-          <input
-            type="password"
-            id="confirmPasswordSignUp"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            required />
-          <i
-            class="fa-regular fa-eye toggle-password"
-            onclick="togglePassword('confirmPasswordSignUp')"></i>
-        </div>
-
-        <!-- Checkbox for terms and conditions -->
-        <label class="checkboxLabel">
-          <input type="checkbox" required />
-          <span>
-            By registering an account, you agree
-            <a href="#">Terms and conditions</a> and
-            <a href="#">Privacy policy</a> *
-          </span>
-        </label>
-
-        <button type="submit" class="submitBtn">Register</button>
-        <p id="loginError" style="color: red; text-align: center"></p>
-      </form>
-
-      <p class="textSwitch">
-        Already have an account? <a href="#" id="toSignIn">Sign In</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- SignIn Form -->
-  <div id="SignIn" class="modal">
-    <div class="modalContent">
-      <h2>Sign In</h2>
-
+  <div class="login-container">
+    <div class="login-page">
+      <h2>Login</h2>
+    
       <form id="SignInForm" method="POST">
-        <input type="email" name="loginEmail" id="loginEmail" placeholder="Email" required />
-
+        <input type="email" name="loginEmail" id= "loginEmail" placeholder="Email" required>
         <div class="passwordWrapper">
-          <input
-            type="password"
-            id="passwordSignIn"
-            name="passwordSignIn"
-            placeholder="Password"
-            required />
-          <i
-            class="fa-regular fa-eye toggle-password"
-            onclick="togglePassword('passwordSignIn')"></i>
+          <input type="password" name="passwordSignIn" id="passwordSignIn" placeholder="Password" required>
+          <i class="fa-regular fa-eye toggle-password" onclick="togglePassword('passwordSignIn')"></i>
         </div>
-
-        <p id="registerError" style="color: red; text-align: center"></p>
         <button type="submit" class="submitBtn">Sign In</button>
       </form>
-
-      <p class="textSwitch">
-        Don’t have an account? <a href="#" id="toSignUp">Sign Up</a>
-      </p>
+      <p id="registerError" style="color: red; text-align: center"></p>
+      <div class="textSwitch">
+        Nuk ke llogari? <a href="signup.php">Regjistrohu</a>
+      </div>
     </div>
   </div>
+<?php if ($loginError): ?>
+        <div id="errorMessage"><?php echo $loginError; ?></div>
+      <?php endif; ?>
 
-  <script src="../js/index.js"></script>
+<script src="../js/index.js"></script>
 </body>
-
-</html>
+</html>   
