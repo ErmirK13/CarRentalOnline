@@ -13,8 +13,7 @@ if (isset($_POST['submit'])) {
         $errorMessage = "Plotëso të gjitha fushat!";
     } else {
 
-        // Përdor prepared statement për siguri
-        $stmt = $connection->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -28,7 +27,6 @@ if (isset($_POST['submit'])) {
                 $_SESSION['role'] = $user['role'];
                 $_SESSION['first_name'] = $user['first_name'];
 
-                // Redirect sipas roli
                 if ($user['role'] === 'admin') {
                     header("Location: ../dashboard/dashboard.php");
                 } else {
@@ -44,4 +42,3 @@ if (isset($_POST['submit'])) {
         $stmt->close();
     }
 }
-?>

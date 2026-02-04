@@ -2,13 +2,11 @@
 session_start();
 include "../includes/database.php";
 
-// Sigurohuni që vetëm admin të hyjë
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../pages/index.php");
     exit();
 }
 
-// Kur forma të dorëzohet
 if (isset($_POST['submit'])) {
     $first = $_POST['first_name'];
     $last = $_POST['last_name'];
@@ -19,10 +17,10 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO users (first_name, last_name, email, password, role)
             VALUES ('$first','$last','$email','$password','$role')";
 
-    if (mysqli_query($connection, $sql)) {
+    if (mysqli_query($conn, $sql)) {
         $successMessage = "User created successfully ✅";
     } else {
-        $errorMessage = "Error creating user: " . mysqli_error($connection);
+        $errorMessage = "Error creating user: " . mysqli_error($conn);
     }
 }
 ?>
@@ -47,7 +45,7 @@ if (isset($_POST['submit'])) {
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
@@ -60,7 +58,8 @@ if (isset($_POST['submit'])) {
             flex-direction: column;
         }
 
-        input, select {
+        input,
+        select {
             padding: 12px;
             margin: 10px 0;
             border-radius: 6px;
@@ -68,7 +67,8 @@ if (isset($_POST['submit'])) {
             font-size: 1em;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             border-color: #007bff;
             outline: none;
         }

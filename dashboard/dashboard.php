@@ -2,7 +2,6 @@
 session_start();
 include "../includes/database.php";
 
-// Kontrollo nëse përdoruesi është admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../pages/index.php");
     exit();
@@ -11,6 +10,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard - Users List</title>
@@ -21,7 +21,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             padding: 20px;
         }
 
-        h1, h2 {
+        h1,
+        h2 {
             color: #333;
         }
 
@@ -43,7 +44,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
 
@@ -57,7 +58,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             color: white;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px;
             text-align: center;
         }
@@ -83,7 +85,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         }
 
         @media (max-width: 768px) {
-            table, thead, tbody, th, td, tr {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
                 display: block;
             }
 
@@ -120,6 +128,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         }
     </style>
 </head>
+
 <body>
     <div class="top-bar">
         <h2>Welcome, <?php echo htmlspecialchars($_SESSION['first_name']); ?> 👋</h2>
@@ -145,7 +154,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             </thead>
             <tbody>
                 <?php
-                // Merr të gjithë përdoruesit nga DB
                 $sql = "SELECT * FROM users";
                 $result = $conn->query($sql);
 
@@ -172,4 +180,5 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         </table>
     </div>
 </body>
+
 </html>
