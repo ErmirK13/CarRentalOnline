@@ -95,21 +95,34 @@ document.addEventListener("DOMContentLoaded", () => {
       signUpErrorDiv.textContent = "";
       let valid = true;
 
-      if (input.id === "firstName" || input.id === "lastName") {
-        if (!/^[A-Za-z]{3,}$/.test(input.value)) {
-          valid = false;
-          signUpErrorDiv.textContent = "Emri dhe mbiemri duhet të kenë minimum 3 shkronja dhe pa numra.";
-          input.classList.add("error");
-        } else {
-          input.classList.remove("error");
-        }
-      }
+      if (input.id === "firstName") {
+  // Fillon me kapital, të paktën 3 shkronja
+  if (!/^[A-Z][a-zA-Z]{2,}$/.test(input.value)) {
+    valid = false;
+    signUpErrorDiv.textContent = "First name must start with a capital letter and be at least 3 letters long.";
+    input.classList.add("error");
+  } else {
+    input.classList.remove("error");
+  }
+}
+
+if (input.id === "lastName") {
+  // Fillon me kapital, të paktën 3 shkronja
+  if (!/^[A-Z][a-zA-Z]{2,}$/.test(input.value)) {
+    valid = false;
+    signUpErrorDiv.textContent = "Last name must start with a capital letter and be at least 3 letters long.";
+    input.classList.add("error");
+  } else {
+    input.classList.remove("error");
+  }
+}
+
 
       if (input.id === "emailSignUp") {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(input.value)) {
           valid = false;
-          signUpErrorDiv.textContent = "Email i pavlefshëm.";
+          signUpErrorDiv.textContent = "Invalid Email";
           input.classList.add("error");
         } else {
           input.classList.remove("error");
@@ -120,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const passRegex = /^(?=.*[0-9])(?=.*[.!@#$%^&*]).{6,}$/;
         if (!passRegex.test(input.value)) {
           valid = false;
-          signUpErrorDiv.textContent = "Password duhet të ketë minimum 6 karaktere, një numër dhe një simbol.";
+          signUpErrorDiv.textContent = "Password must be at least 6 characters, include a number and a symbol.";
           input.classList.add("error");
         } else {
           input.classList.remove("error");
@@ -130,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (input.id === "confirmPasswordSignUp") {
         if (input.value !== signupFields.passwordSignUp.value) {
           valid = false;
-          signUpErrorDiv.textContent = "Password-et nuk përputhen.";
+          signUpErrorDiv.textContent = "Passwords do not match.";
           input.classList.add("error");
         } else {
           input.classList.remove("error");
