@@ -177,7 +177,36 @@ include "../includes/database.php";
       <p id="carType"></p>
       <p id="carTransmission"></p>
       <p class="price">€<span id="carPrice"></span> / day</p>
-      <button class="book-btn">Book Now</button>
+     <form action="process_booking.php" method="POST">
+
+  
+  <input type="hidden" name="car_id" id="carIdInput">
+
+  <div style="margin:10px 0;">
+    <label>Pickup Location:</label><br>
+    <input type="text" name="pickup_location" required 
+           style="padding:8px; width:100%; border-radius:6px;">
+  </div>
+
+  <div style="margin:10px 0;">
+    <label>Pickup Date:</label><br>
+    <input type="date" name="pickup_date" required 
+           style="padding:8px; width:100%; border-radius:6px;">
+  </div>
+
+  <div style="margin:10px 0;">
+    <label>Return Date:</label><br>
+    <input type="date" name="return_date" required 
+           style="padding:8px; width:100%; border-radius:6px;">
+  </div>
+
+  <button type="submit" name="submit_booking" 
+          style="margin-top:10px;">
+    Confirm Booking
+  </button>
+
+</form>
+
 
       <div class="car-features">
         <div>Seats: 5</div>
@@ -253,6 +282,9 @@ include "../includes/database.php";
       document.querySelector(".car-details-section").innerHTML =
         "<p>No car selected.</p>";
     }
+    if (car) {
+  document.getElementById("carIdInput").value = car.id;
+}
   </script>
 </body>
 
