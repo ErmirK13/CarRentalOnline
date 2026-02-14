@@ -2,20 +2,39 @@
 session_start();
 include "../includes/database.php";
 
+// Kontrollo nëse car_id ekziston
+if(!isset($_GET['car_id'])){
+    header("Location: services.php");
+    exit;
+}
+
+
+$car_id = intval($_GET['car_id']); // Siguro që është numër
+
+// Merr veturën nga DB
+$stmt = $conn->prepare("SELECT * FROM cars WHERE id = ?");
+$stmt->bind_param("i", $car_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if($result->num_rows !== 1){
+    echo "<p style='text-align:center; margin-top:50px;'>Car not found.</p>";
+    exit;
+}
+
+$car = $result->fetch_assoc();
+$images = json_decode($car['images']);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Car Details</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <style>
-    body {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><?php echo $car['name']; ?> - Details</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+ body {
       font-family: Arial, sans-serif;
       background: #f5f6fa;
       margin: 0;
@@ -152,140 +171,77 @@ include "../includes/database.php";
         font-size: 20px;
       }
     }
-  </style>
+</style>
 </head>
-
 <body>
-  <!-- Back to Services -->
-  <a href="services.php" class="back-btn">
-    <i class="fa-solid fa-arrow-left"></i> Back to Services
-  </a>
 
-  <!-- Car Details Section -->
-  <section class="car-details-section">
-    <div class="car-gallery" id="carGallery"></div>
+<a href="services.php" class="back-btn">
+  <i class="fa-solid fa-arrow-left"></i> Back to Services
+</a>
 
-    <div class="car-info">
-      <h1 id="carName"></h1>
-      <div class="rating">
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-regular fa-star"></i>
+<section class="car-details-section">
+  <div class="car-gallery" id="carGallery">
+    <?php if(!empty($images)): ?>
+      <img src="<?php echo $images[0]; ?>" class="main" loading="lazy">
+      <div class="thumb-container" style="display:flex; gap:10px; margin-top:10px; overflow-x:auto;">
+        <?php foreach($images as $index => $img): ?>
+          <img src="<?php echo $img; ?>" style="width:70px; height:50px; object-fit:cover; border-radius:8px; cursor:pointer; <?php echo $index===0 ? 'border:2px solid #2072ef;' : 'border:2px solid transparent;'; ?>" onclick="changeMain(this)">
+        <?php endforeach; ?>
       </div>
-      <p id="carType"></p>
-      <p id="carTransmission"></p>
-      <p class="price">€<span id="carPrice"></span> / day</p>
-     <form action="process_booking.php" method="POST">
-
-  
-  <input type="hidden" name="car_id" id="carIdInput">
-
-  <div style="margin:10px 0;">
-    <label>Pickup Location:</label><br>
-    <input type="text" name="pickup_location" required 
-           style="padding:8px; width:100%; border-radius:6px;">
+    <?php endif; ?>
   </div>
 
-  <div style="margin:10px 0;">
-    <label>Pickup Date:</label><br>
-    <input type="date" name="pickup_date" required 
-           style="padding:8px; width:100%; border-radius:6px;">
-  </div>
-
-  <div style="margin:10px 0;">
-    <label>Return Date:</label><br>
-    <input type="date" name="return_date" required 
-           style="padding:8px; width:100%; border-radius:6px;">
-  </div>
-
-  <button type="submit" name="submit_booking" 
-          style="margin-top:10px;">
-    Confirm Booking
-  </button>
-
-</form>
-
-
-      <div class="car-features">
-        <div>Seats: 5</div>
-        <div>Luggage: 3</div>
-        <div>Fuel: Petrol</div>
-        <div>Doors: 4</div>
-        <div>AC: Yes</div>
-      </div>
+  <div class="car-info">
+    <h1><?php echo $car['name']; ?></h1>
+    <div class="rating">
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-regular fa-star"></i>
     </div>
-  </section>
+    <p>Type: <?php echo $car['type']; ?></p>
+    <p>Transmission: <?php echo $car['transmission']; ?></p>
+    <p class="price">€<?php echo $car['price']; ?> / day</p>
 
-  <script>
-    const car = JSON.parse(localStorage.getItem("selectedCar"));
+    <form action="process_booking.php" method="POST">
+      <input type="hidden" name="car_id" value="<?php echo $car['id']; ?>">
 
-    if (car) {
-      document.getElementById("carName").textContent = car.name;
-      document.getElementById("carPrice").textContent = car.price;
-      document.getElementById("carType").textContent = "Type: " + car.type;
-      document.getElementById("carTransmission").textContent =
-        "Transmission: " + car.transmission;
+      <div style="margin:10px 0;">
+        <label>Pickup Location:</label><br>
+        <input type="text" name="pickup_location" required style="padding:8px; width:100%; border-radius:6px;">
+      </div>
 
-      const gallery = document.getElementById("carGallery");
-      gallery.innerHTML = "";
+      <div style="margin:10px 0;">
+        <label>Pickup Date:</label><br>
+        <input type="date" name="pickup_date" required style="padding:8px; width:100%; border-radius:6px;">
+      </div>
 
-      // Main image
-      const mainImg = document.createElement("img");
-      mainImg.src = car.images[0];
-      mainImg.classList.add("main");
-      mainImg.loading = "lazy";
-      gallery.appendChild(mainImg);
+      <div style="margin:10px 0;">
+        <label>Return Date:</label><br>
+        <input type="date" name="return_date" required style="padding:8px; width:100%; border-radius:6px;">
+      </div>
 
-      // Container for thumbnails
-      const thumbContainer = document.createElement("div");
-      thumbContainer.style.display = "flex";
-      thumbContainer.style.flexWrap = "nowrap";
-      thumbContainer.style.gap = "10px";
-      thumbContainer.style.marginTop = "10px";
-      thumbContainer.style.overflowX = "auto";
-      thumbContainer.style.WebkitOverflowScrolling = "touch";
-      gallery.appendChild(thumbContainer);
+      <button type="submit" name="submit_booking" style="margin-top:10px;">Confirm Booking</button>
+    </form>
 
-      thumbContainer.classList.add("thumb-container");
-      gallery.appendChild(thumbContainer);
+    <div class="car-features">
+      <div>Seats: 5</div>
+      <div>Luggage: 3</div>
+      <div>Fuel: Petrol</div>
+      <div>Doors: 4</div>
+      <div>AC: Yes</div>
+    </div>
+  </div>
+</section>
 
-      // Thumbnails
-      car.images.forEach((src, index) => {
-        const thumb = document.createElement("img");
-        thumb.src = src;
-        thumb.style.flex = "0 0 auto";
-        thumb.style.width = "70px";
-        thumb.style.height = "50px";
-        thumb.style.objectFit = "cover";
-        thumb.style.borderRadius = "8px";
-        thumb.style.cursor = "pointer";
-        thumb.style.border =
-          index === 0 ? "2px solid #2072ef" : "2px solid transparent";
-
-        thumb.addEventListener("click", () => {
-          mainImg.src = src;
-          Array.from(thumbContainer.children).forEach(
-            (t) => (t.style.border = "2px solid transparent")
-          );
-          thumb.style.border = "2px solid #2072ef";
-          thumb.scrollIntoView({
-            behavior: "smooth",
-            inline: "center"
-          });
-        });
-
-        thumbContainer.appendChild(thumb);
-      });
-    } else {
-      document.querySelector(".car-details-section").innerHTML =
-        "<p>No car selected.</p>";
-    }
-    if (car) {
-  document.getElementById("carIdInput").value = car.id;
+<script>
+function changeMain(el){
+    document.querySelector('.car-gallery .main').src = el.src;
+    document.querySelectorAll('.thumb-container img').forEach(img => img.style.border = '2px solid transparent');
+    el.style.border = '2px solid #2072ef';
 }
-  </script>
-</body>
+</script>
 
+</body>
 </html>

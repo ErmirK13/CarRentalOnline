@@ -5,208 +5,123 @@ include "../includes/database.php";
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services</title>
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  /* Upload Form */
+  #uploadFormContainer {
+    display: none;
+    background: #f5f6fa;
+    padding: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  #uploadFormContainer input, #uploadFormContainer select, #uploadFormContainer button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  #uploadBtn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #2072ef;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  #uploadBtn:hover { background: #0053d1; }
+  .read-more-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    background: #2072ef;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-top: 5px;
+  }
+  .read-more-btn:hover { background: #0053d1; }
+</style>
 </head>
-
 <body>
-  <!-- Header -->
-  <?php include '../includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
-  <!-- SERVICES -->
-  <section class="services-section">
-    <h1>Our Cars</h1>
+<?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+  <button id="uploadBtn"><i class="fa-solid fa-upload"></i> Upload New Car</button>
+  <div id="uploadFormContainer">
+    <form method="POST" enctype="multipart/form-data" action="upload_car.php">
+        <input type="text" name="name" placeholder="Car Name" required>
+        <input type="number" name="price" placeholder="Price per day" required>
+        <input type="text" name="type" placeholder="Car Type (e.g., Sedan, SUV)" required>
+        <select name="transmission" required>
+            <option value="Manual">Manual</option>
+            <option value="Automatic">Automatic</option>
+        </select>
+        <input type="file" name="images[]" multiple required>
+        <button type="submit" name="add_car">Add Car</button>
+    </form>
+  </div>
+<?php endif; ?>
 
-    <!-- FILTER BY TRANSMISSION -->
-    <label for="transmissionFilter">Select by Transmission:</label>
-    <select id="transmissionFilter">
-      <option value="All">All</option>
-      <option value="Manual">Manual</option>
-      <option value="Automatic">Automatic</option>
-    </select>
 
-    <div class="services-container" id="cars-containers">
-      <!-- CARD -->
+<section class="services-section">
+  <h1>Our Cars</h1>
+
+  <label for="transmissionFilter">Select by Transmission:</label>
+  <select id="transmissionFilter">
+    <option value="All">All</option>
+    <option value="Manual">Manual</option>
+    <option value="Automatic">Automatic</option>
+  </select>
+
+  <div class="services-container" id="cars-containers">
+    <?php
+    $result = $conn->query("SELECT * FROM cars");
+    while($row = $result->fetch_assoc()):
+        $images = json_decode($row['images']);
+    ?>
       <div class="car-card">
-        <img
-          src="../images/cars/golf/car1.jpg"
-          loading="lazy"
-          onclick="viewCarDetails('VW Golf', 50, 'Economy', 'Manual',
-          [
-            '../images/cars/golf/car1.jpg',
-            '../images/cars/golf/golf7.jpg'
-          ])" />
-        <h3>VW Golf</h3>
-        <p>Economy · Manual</p>
-        <span class="price">€50 / day</span>
-        <button
-          onclick="viewCarDetails('VW Golf', 50, 'Economy', 'Manual', [
-          '../images/cars/golf/car1.jpg',
-          '../images/cars/golf/golf7.jpg'
-        ])">
-          Read more
-        </button>
+          <img src="<?php echo $images[0]; ?>" loading="lazy" alt="<?php echo $row['name']; ?>" />
+          <h3><?php echo $row['name']; ?></h3>
+          <p><?php echo $row['type']; ?> · <?php echo $row['transmission']; ?></p>
+          <span class="price">€<?php echo $row['price']; ?> / day</span>
+          <a href="car-details.php?car_id=<?php echo $row['id']; ?>" class="read-more-btn">Read more</a>
       </div>
+    <?php endwhile; ?>
+  </div>
+</section>
 
-      <div class="car-card">
-        <img
-          src="../images/cars/audi/car2.jpg"
-          alt="Car"
-          loading="lazy"
-          onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic',  [
-            '../images/cars/audi/car2.jpg',
-            '../images/cars/audi/audiA4.jpg'
-          ])" />
-        <h3>Audi A4</h3>
-        <p>Sedan · Automatic</p>
-        <span class="price">€90 / day</span>
-        <button
-          onclick="viewCarDetails('Audi A4', 90, 'Sedan', 'Automatic', [
-            '../images/cars/audi/car2.jpg',
-            '../images/cars/audi/audiA4.jpg'
-          ])">
-          Read more
-        </button>
-      </div>
+<?php include '../includes/footer.php'; ?>
 
-      <div class="car-card">
-        <img
-          src="../images/cars/bmw-x5/car3.jpg"
-          loading="lazy"
-          onclick="viewCarDetails('BMW X5', 120, 'Luxury SUV', 'Automatic', [
-            '../images/cars/bmw-x5/car3.jpg',
-            '../images/cars/bmw-x5/bmwX5.jpg',
-          ])" />
-        <h3>BMW X5</h3>
-        <p>Luxury SUV · Automatic</p>
-        <span class="price">€120 / day</span>
-        <button
-          onclick="viewCarDetails('BMW X5', 120, 'Luxury SUV', 'Automatic',  [
-            '../images/cars/bmw-x5/car3.jpg',
-            '../images/cars/bmw-x5/bmwX5.jpg'
-          ])">
-          Read more
-        </button>
-      </div>
+<script>
+<?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+document.getElementById("uploadBtn").addEventListener("click", function(){
+    const form = document.getElementById("uploadFormContainer");
+    form.style.display = form.style.display === "none" ? "block" : "none";
+});
+<?php endif; ?>
 
-      <div class="car-card">
-        <img
-          src="../images/cars/tiguan/car4.jpg"
-          alt="Car"
-          loading="lazy"
-          onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic',  [
-            '../images/cars/tiguan/car4.jpg',
-            '../images/cars/tiguan/tiguan.jpg',
-          ])" />
-        <h3>Tiguan R-Line</h3>
-        <p>Economy · Automatic</p>
-        <span class="price">€50 / day</span>
-        <button
-          onclick="viewCarDetails('Tiguan R-Line', 50, 'Economy', 'Automatic', [
-            '../images/cars/tiguan/car4.jpg',
-            '../images/cars/tiguan/tiguan.jpg'
-          ])">
-          Read more
-        </button>
-      </div>
+document.addEventListener("DOMContentLoaded", () => {
+  const filterSelect = document.getElementById("transmissionFilter");
+  const carCards = document.querySelectorAll(".car-card");
 
-      <div class="car-card">
-        <img
-          src="../images/cars/mercedes/car5.jpg"
-          alt="Car"
-          loading="lazy"
-          onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual',  [
-            '../images/cars/mercedes/car5.jpg',
-            '../images/cars/mercedes/mercedes.jpg',
-          ])" />
-        <h3>Mercedes S-Class</h3>
-        <p>Economy · Manual</p>
-        <span class="price">€50 / day</span>
-        <button
-          onclick="viewCarDetails('Mercedes S-Class', 50, 'Economy', 'Manual', [
-            '../images/cars/mercedes/car5.jpg',
-            '../images/cars/mercedes/mercedes.jpg'
-          ])">
-          Read more
-        </button>
-      </div>
-
-      <div class="car-card">
-        <img
-          src="../images/cars/rangeRover/car6.jpg"
-          alt="Car"
-          loading="lazy"
-          onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', [
-            '../images/cars/rangeRover/car6.jpg',
-            '../images/cars/rangeRover/rangerover.jpg'
-          ])" />
-        <h3>Range Rover Evoque</h3>
-        <p>Economy · Manual</p>
-        <span class="price">€50 / day</span>
-        <button
-          onclick="viewCarDetails('Range Rover Evoque', 50, 'Economy', 'Manual', [
-            '../images/cars/rangeRover/car6.jpg',
-            '../images/cars/rangeRover/rangerover.jpg'
-          ])">
-          Read more
-        </button>
-      </div>
-
-      <div class="car-card">
-        <img
-          src="../images/cars/touareg/car7.jpg"
-          alt="Car"
-          loading="lazy"
-          onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', [
-            '../images/cars/touareg/car7.jpg',
-            '../images/cars/touareg/touareg.jpg'
-          ])" />
-        <h3>Touareg</h3>
-        <p>Economy · Manual</p>
-        <span class="price">€50 / day</span>
-        <button
-          onclick="viewCarDetails('Touareg', 50, 'Economy', 'Manual', [
-            '../images/cars/touareg/car7.jpg',
-            '../images/cars/touareg/touareg.jpg'
-          ])">
-          Read more
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <?php include '../includes/footer.php'; ?>
-
-  <script src="../js/index.js"></script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // FILTER BY TRANSMISSION
-      const filterSelect = document.getElementById("transmissionFilter");
-      const carCards = document.querySelectorAll(".car-card");
-
-      filterSelect.addEventListener("change", () => {
-        const value = filterSelect.value;
-
-        carCards.forEach((card) => {
-          const text = card.querySelector("p").textContent;
-          if (value === "All" || text.includes(value)) {
-            card.style.display = "block";
-          } else {
-            card.style.display = "none";
-          }
-        });
-      });
+  filterSelect.addEventListener("change", () => {
+    const value = filterSelect.value;
+    carCards.forEach((card) => {
+      const text = card.querySelector("p").textContent;
+      card.style.display = (value === "All" || text.includes(value)) ? "block" : "none";
     });
-  </script>
+  });
+});
+</script>
 </body>
-
 </html>
