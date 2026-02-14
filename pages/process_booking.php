@@ -9,7 +9,6 @@ if (isset($_POST['submit_booking'])) {
         exit;
     }
 
-    // 🟢 Merr të dhënat nga form
     $user_id = $_SESSION['user_id'];
     $car_id = isset($_POST['car_id']) ? mysqli_real_escape_string($conn, $_POST['car_id']) : null;
     $location = mysqli_real_escape_string($conn, $_POST['pickup_location']);
@@ -17,11 +16,10 @@ if (isset($_POST['submit_booking'])) {
     $r_date = $_POST['return_date'];
 
     if (!$car_id) {
-        echo "<script>alert('Car ID is missing!'); window.history.back();</script>";
+        echo "<script>alert('Sorry! These dates are taken...'); window.history.back();</script>";
         exit;
     }
 
-    // 🟢 Kontrollo nëse datat janë të lira për këtë veturë
     $check_query = "SELECT * FROM reservations 
                     WHERE car_id = '$car_id' 
                     AND ('$p_date' <= return_date AND '$r_date' >= pickup_date)";
