@@ -33,12 +33,14 @@ session_start();
           Rent the best cars at the best prices. Easy booking,fast pickup, and
           trusted service.
         </p>
-        <div class="home-search">
-          <input type="text" placeholder="Pick-up Location" />
-          <input type="date" />
-          <input type="date" />
-          <button class="search">Search Now</button>
-        </div>
+
+        <form action="process_booking.php" method="POST" class="home-search">
+          <input type="text" name="pickup_location" placeholder="Pick-up Location" required />
+          <input type="date" name="pickup_date" required />
+          <input type="date" name="return_date" required />
+          <button type="submit" name="submit_booking" class="search">Search Now</button>
+        </form>
+
       </div>
       <div class="home-image">
         <img src="../images/Home.jpg" alt="Rental Car" />

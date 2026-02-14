@@ -61,20 +61,32 @@ $firstName = $_SESSION['first_name'];
 <body>
 
   <div class="header">
-    <h3>Hello, <?php echo $firstName; ?></h3>
+
+    <div style="display:flex; align-items:center; gap:15px;">
+
+      <!-- BACK TO HOME -->
+      <a href="../pages/index.php" style="
+      text-decoration:none;
+      font-size:20px;
+      font-weight:bold;
+      color:#007bff;
+    ">
+        ← Home
+      </a>
+
+      <h3>Hello, <?php echo $firstName; ?></h3>
+
+    </div>
     <a class="btn" href="../auth/logout.php">Logout</a>
   </div>
 
   <div class="container">
-
     <h2>User Dashboard</h2>
 
     <div class="card">Browse Cars</div>
     <div class="card">My Bookings</div>
     <div class="card">Profile Settings</div>
-
   </div>
 
 </body>
-
 </html>

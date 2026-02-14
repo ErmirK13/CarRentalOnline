@@ -2,7 +2,6 @@
 session_start();
 include "../includes/database.php";
 
-
 $email = "";
 $password = "";
 $loginError = "";
@@ -10,7 +9,6 @@ $loginError = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['loginEmail'])) {
   $emailLogin = $_POST['loginEmail'];
   $passwordLogin = $_POST['passwordSignIn'];
-
 
   $result = mysqli_query($conn, "SELECT * FROM users WHERE email='$emailLogin'");
 
