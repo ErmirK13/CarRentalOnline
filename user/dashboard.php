@@ -41,6 +41,7 @@ $result = mysqli_query($conn, "SELECT * FROM reservations WHERE user_id = '$user
       --primary: #007bff;
       --danger: #dc3545;
       --success: #28a745;
+      --text-dark: #333;
     }
 
     body {
@@ -50,7 +51,7 @@ $result = mysqli_query($conn, "SELECT * FROM reservations WHERE user_id = '$user
       min-height: 100vh;
       color: #333;
     }
-
+    
     .header {
       background: white;
       padding: 15px 5%;
@@ -60,6 +61,55 @@ $result = mysqli_query($conn, "SELECT * FROM reservations WHERE user_id = '$user
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       flex-wrap: wrap;
       gap: 10px;
+    }
+
+    .header-left a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .profile-link {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .profile-link:hover {
+      color: var(--primary);
+    }
+
+    .profile-link i {
+      font-size: 24px;
+      color: var(--primary);
+    }
+
+    .logout-btn {
+      background: var(--danger);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #c82333;
     }
 
     .container {
@@ -130,15 +180,6 @@ $result = mysqli_query($conn, "SELECT * FROM reservations WHERE user_id = '$user
       font-weight: bold;
     }
 
-    .logout-btn {
-      background: var(--danger);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
     .edit-form-container {
       background: #e9f2ff;
       padding: 20px;
@@ -171,9 +212,10 @@ $result = mysqli_query($conn, "SELECT * FROM reservations WHERE user_id = '$user
     }
 
     @media (max-width: 768px) {
-      .header {
-        justify-content: center;
-        text-align: center;
+      .header-right {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 10px;
       }
 
       .container {
@@ -211,12 +253,6 @@ $result = mysqli_query($conn, "SELECT * FROM reservations WHERE user_id = '$user
         font-size: 12px;
         color: #777;
       }
-
-      .btn-edit,
-      .btn-cancel {
-        display: inline-block;
-        padding: 10px 0;
-      }
     }
   </style>
 </head>
@@ -224,11 +260,22 @@ $result = mysqli_query($conn, "SELECT * FROM reservations WHERE user_id = '$user
 <body>
 
   <div class="header">
-    <div style="display:flex; align-items:center; gap:15px;">
-      <a href="../pages/index.php" style="text-decoration:none; color:var(--primary); font-weight:bold;">← Home</a>
-      <h3 style="margin:0;">Hi, <?php echo $firstName; ?></h3>
+    <div class="header-left">
+      <a href="../pages/index.php">
+        <i class="fa-solid fa-arrow-left"></i> Home
+      </a>
     </div>
-    <a href="../auth/logout.php" class="logout-btn">Logout</a>
+
+    <div class="header-right">
+      <a href="edit_profile.php" class="profile-link">
+        <i class="fa-solid fa-circle-user"></i>
+        <span><?php echo $firstName; ?></span>
+      </a>
+
+      <a href="../auth/logout.php" class="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </a>
+    </div>
   </div>
 
   <div class="container">
